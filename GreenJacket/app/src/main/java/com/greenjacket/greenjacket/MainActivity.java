@@ -1,6 +1,8 @@
 package com.greenjacket.greenjacket;
 
 import android.app.ActionBar;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -25,13 +27,27 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
+        final Context main_context = this;
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Are you ready to check out?", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                // Snackbar.make(view, "Are you ready to check out?", Snackbar.LENGTH_LONG)
+                //       .setAction("Action", null).show();
+                Intent to_checkout = new Intent(main_context, Checkout.class);
+                startActivity(to_checkout);
+
             }
         });
+
+        Intent received_intent = getIntent();
+        if(received_intent.getBooleanExtra("item_added", false))
+        {
+
+            View this_view = this.findViewById(android.R.id.content);
+            Snackbar.make(this_view, "Item added to cart", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
     }
 
     @Override
@@ -55,4 +71,21 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void MeatButton(View view) {
+        // Do something in response to button
+        Intent to_container = new Intent(this, Container.class);
+
+        switch(view.getId())
+        {
+            case 2131492983: // Meat
+                to_container.putExtra("category", "meat");
+                break;
+        }
+
+        startActivity(to_container);
+
+    }
 }
+
+
