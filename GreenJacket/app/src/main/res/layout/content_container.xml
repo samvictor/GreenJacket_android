@@ -29,7 +29,7 @@
         android:id="@+id/imageButton8"
         android:layout_row="0"
         android:layout_column="1"
-        android:src="@mipmap/sandwich"
+        android:src="@mipmap/wrap"
         android:scaleType="fitCenter" />
 
     <TextView
@@ -46,7 +46,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="     Sandwich"
+        android:text="          Wrap"
         android:id="@+id/textView8"
         android:layout_row="1"
         android:layout_column="1"
