@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
             View this_view = this.findViewById(android.R.id.content);
             // fab id is 2131492970
 
-            this_view = this.findViewById(android.R.id.content).findViewWithTag("category fab");
+            //this_view = this.findViewById(android.R.id.content).findViewWithTag("category fab");
+            this_view = this.findViewById(R.id.fab);
             Snackbar.make(this_view, "Item added to cart", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch(view.getId())
         {
-            case 2131492983: // Meat
+            case R.id.meat_button: // Meat
                 to_container.putExtra("category", "meat");
                 break;
         }

@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.CheckBox;
 
 public class Options extends AppCompatActivity {
 
@@ -34,10 +35,13 @@ public class Options extends AppCompatActivity {
 
     public void OptionsBaconButton(View view) {
         // Do something in response to button
+        final CheckBox checkBox = (CheckBox) findViewById(R.id.bacon_checkbox);
+        checkBox.toggle();
+    }
 
-        switch(view.getId())
-        {
-
-        }
+    public void OptionsPicklesButton(View view) {
+        // Do something in response to button
+        final CheckBox checkBox = (CheckBox) findViewById(R.id.pickles_checkbox);
+        checkBox.toggle();
     }
 }
