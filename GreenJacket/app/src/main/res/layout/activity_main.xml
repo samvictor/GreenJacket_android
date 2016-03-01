@@ -24,6 +24,7 @@
         android:src="@mipmap/shopping_cart"
         android:scaleType="center"
         android:adjustViewBounds="false"
-        app:backgroundTint="#00ffffff" />
+        app:backgroundTint="#00ffffff"
+        android:tag="category fab"/>
 
 </android.support.design.widget.CoordinatorLayout>

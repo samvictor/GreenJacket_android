@@ -16,7 +16,6 @@ public class Checkout extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Checkout");
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

@@ -17,7 +17,7 @@ public class Container extends AppCompatActivity {
         setContentView(R.layout.activity_container);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Green Jacket");
+        getSupportActionBar().setTitle("Meat");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         final Context container_context = this;
@@ -41,19 +41,16 @@ public class Container extends AppCompatActivity {
     public void ContainerBurgerButton(View view) {
         // Do something in response to button
 
-
-        Intent to_category = new Intent(this, MainActivity.class);
+        Intent to_options = new Intent(this, Options.class);
 
         switch(view.getId())
         {
             case -1: // burger
-                to_category.putExtra("container", "burger");
+                to_options.putExtra("container", "burger");
                 break;
         }
 
-        to_category.putExtra("item_added", true);
-        startActivity(to_category);
-
+        to_options.putExtra("item_added", true);
+        startActivity(to_options);
     }
-
 }

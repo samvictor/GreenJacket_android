@@ -1,5 +1,7 @@
 package com.greenjacket.greenjacket;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,16 +17,27 @@ public class Options extends AppCompatActivity {
         setContentView(R.layout.activity_options);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Options");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final Context options_context = this;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent to_category = new Intent(options_context, MainActivity.class);
+                to_category.putExtra("item_added", true);
+                startActivity(to_category);
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    public void OptionsBaconButton(View view) {
+        // Do something in response to button
+
+        switch(view.getId())
+        {
+
+        }
+    }
 }

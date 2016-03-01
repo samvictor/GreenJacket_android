@@ -12,4 +12,73 @@
     tools:context="com.greenjacket.greenjacket.Options"
     tools:showIn="@layout/activity_options">
 
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_column="0">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:id="@+id/imageView2"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:src="@mipmap/hamburger_image"
+            android:layout_columnWeight="1"
+            android:layout_gravity="left" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Burger"
+            android:id="@+id/textView3"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:textColor="#ffffff"
+            android:layout_columnWeight="2"
+            android:layout_columnSpan="2"
+            android:gravity="center_vertical|left" />
+    </GridLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_row="1"
+        android:layout_column="0">
+
+        <ImageButton
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
+            android:id="@+id/imageButton4"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:src="@mipmap/bacon"
+            android:scaleType="fitCenter"
+            android:layout_columnWeight="1"
+            android:onClick="OptionsBaconButton" />
+
+        <ImageButton
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
+            android:id="@+id/imageButton5"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:src="@mipmap/cheese"
+            android:scaleType="fitCenter"
+            android:layout_columnWeight="1" />
+
+        <ImageButton
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
+            android:id="@+id/imageButton6"
+            android:layout_row="0"
+            android:layout_column="2"
+            android:layout_columnWeight="1"
+            android:src="@mipmap/pickles"
+            android:scaleType="fitCenter" />
+    </GridLayout>
+
+
 </GridLayout>

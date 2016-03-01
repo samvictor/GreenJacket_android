@@ -32,10 +32,11 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Snackbar.make(view, "Are you ready to check out?", Snackbar.LENGTH_LONG)
-                //       .setAction("Action", null).show();
-                Intent to_checkout = new Intent(main_context, Checkout.class);
-                startActivity(to_checkout);
+                 //Snackbar.make(view, "Are you ready to check out?", Snackbar.LENGTH_LONG)
+                 //      .setAction("Action", null).show();
+                 Intent to_checkout = new Intent(main_context, Checkout.class);
+                System.out.println("button id is" + view.getId());
+                 startActivity(to_checkout);
 
             }
         });
@@ -45,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
         {
 
             View this_view = this.findViewById(android.R.id.content);
+            // fab id is 2131492970
+
+            this_view = this.findViewById(android.R.id.content).findViewWithTag("category fab");
             Snackbar.make(this_view, "Item added to cart", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }

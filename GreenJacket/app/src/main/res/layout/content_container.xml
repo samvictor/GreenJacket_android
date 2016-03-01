@@ -13,12 +13,21 @@
     tools:showIn="@layout/activity_container">
 
     <ImageButton
-        android:layout_width="112dp"
-        android:layout_height="107dp"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="@dimen/button_height"
         android:id="@+id/imageButton2"
         android:layout_row="0"
         android:layout_column="0"
         android:src="@mipmap/hamburger_image"
-        android:scaleType="fitXY"
+        android:scaleType="fitCenter"
         android:onClick="ContainerBurgerButton" />
+
+    <ImageButton
+        android:layout_width="@dimen/button_width"
+        android:layout_height="@dimen/button_height"
+        android:id="@+id/imageButton8"
+        android:layout_row="0"
+        android:layout_column="1"
+        android:src="@mipmap/sandwich"
+        android:scaleType="fitCenter" />
 </GridLayout>
