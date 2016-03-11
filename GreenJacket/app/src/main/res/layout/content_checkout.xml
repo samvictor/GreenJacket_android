@@ -13,7 +13,7 @@
     tools:showIn="@layout/activity_checkout"
     android:layout_gravity="center_vertical"
     android:foregroundGravity="center_vertical"
-    android:columnCount="5"
+    android:columnCount="4"
     android:orientation="vertical">
 
     <ImageView
@@ -47,7 +47,7 @@
         android:layout_row="0"
         android:layout_column="2"
         android:textColor="#ffffff"
-        android:layout_columnWeight="1" />
+        android:layout_columnWeight="2" />
 
     <ImageButton
         android:layout_width="41dp"
