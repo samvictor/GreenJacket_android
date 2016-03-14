@@ -64,6 +64,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.greenjacket.greenjacket.MainActivity" />
         </activity>
+        <activity
+            android:name=".Size"
+            android:label="@string/title_activity_size"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.greenjacket.greenjacket.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
