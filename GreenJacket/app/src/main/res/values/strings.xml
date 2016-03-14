@@ -4,4 +4,5 @@
     <string name="title_activity_container">Container</string>
     <string name="title_activity_checkout">Checkout</string>
     <string name="title_activity_options">Options</string>
+    <string name="title_activity_main_ingredient">MainIngredient</string>
 </resources>

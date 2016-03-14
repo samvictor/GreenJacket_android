@@ -150,16 +150,16 @@ public class MainActivity extends AppCompatActivity {
     // Function for category buttons
     public void MeatButton(View view) {
         // Do something in response to button
-        Intent to_container = new Intent(this, Container.class);
+        Intent to_main_ing = new Intent(this, MainIngredient.class);
 
         switch(view.getId())
         {
             case R.id.meat_button: // Meat
-                to_container.putExtra("category", "meat");
+                to_main_ing.putExtra("category", "meat");
                 break;
         }
 
-        startActivity(to_container);
+        startActivity(to_main_ing);
     }
 }
 
