@@ -17,12 +17,12 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="69dp"
+        android:layout_height="69dp"
         android:id="@+id/imageView"
         android:layout_row="0"
         android:layout_column="0"
-        android:src="@mipmap/hamburger_image"
+        android:src="@mipmap/real_big_mac"
         android:layout_columnWeight="1"
         android:scaleType="fitCenter"
         android:layout_gravity="center_horizontal" />
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Burger:\n+cheese, +bacon"
+        android:text="Big Mac\nBurger:\n+cheese, +bacon"
         android:id="@+id/textView"
         android:layout_row="0"
         android:layout_column="1"

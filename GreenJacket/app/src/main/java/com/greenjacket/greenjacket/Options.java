@@ -44,4 +44,12 @@ public class Options extends AppCompatActivity {
         final CheckBox checkBox = (CheckBox) findViewById(R.id.pickles_checkbox);
         checkBox.toggle();
     }
+
+    public void FixedChosen(View view)
+    {
+        //this_view = this.findViewById(android.R.id.content).findViewWithTag("category fab");
+        View this_view = this.findViewById(R.id.fab);
+        Snackbar.make(this_view, "This item is required", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
 }
