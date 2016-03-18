@@ -6,4 +6,6 @@
     <string name="title_activity_options">Options</string>
     <string name="title_activity_main_ingredient">MainIngredient</string>
     <string name="title_activity_size">Size</string>
+    <string name="button_id_tag">category_button_id</string>
+    <string name="button_name_tag">category_button_name</string>
 </resources>

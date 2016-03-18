@@ -2,6 +2,7 @@ package com.greenjacket.greenjacket;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -18,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 //Snackbar.make(view, "Are you ready to check out?", Snackbar.LENGTH_LONG)
                 //      .setAction("Action", null).show();
                 Intent to_checkout = new Intent(main_context, Checkout.class);
-                System.out.println("button id is" + view.getId());
+                //System.out.println("button id is" + view.getId());
                 startActivity(to_checkout);
 
             }
@@ -202,12 +204,15 @@ public class MainActivity extends AppCompatActivity {
         // Do something in response to button
         Intent to_main_ing = new Intent(this, MainIngredient.class);
 
-        switch(view.getId())
+        System.out.println(view.getTag(R.string.button_id_tag));
+        System.out.println(view.getTag(R.string.button_name_tag));
+
+        /*switch(view.getTag())
         {
-            case R.id.meat_button: // Meat
+            case st_1: // Meat
                 to_main_ing.putExtra("category", "meat");
                 break;
-        }
+        }*/
 
         startActivity(to_main_ing);
     }
@@ -218,13 +223,22 @@ public class MainActivity extends AppCompatActivity {
         //System.out.println(menu_data.getJSONObject("categories"));
 
         ArrayList <String> cat_names = new ArrayList<String>();
+        ArrayList <String> cat_ids = new ArrayList<String>();
 
         for(Iterator<String> cat_iter = categories.keys(); cat_iter.hasNext();) {
             String key = cat_iter.next();
             String new_name = categories.getJSONObject(key).getString("name");
-            System.out.println(new_name);
+            //System.out.println(new_name);
             cat_names.add(new_name);
+            cat_ids.add(key);
         }
+
+        View.OnClickListener cat_listener = new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                CategoryButton(v);
+            }
+        };
 
         GridLayout gridLayout = (GridLayout) findViewById(R.id.main_content);
         gridLayout.removeAllViews();
@@ -238,26 +252,60 @@ public class MainActivity extends AppCompatActivity {
                 c = 0;
                 r++;
             }
-            TextView new_button = new TextView(this);
-            //new_button.setImageResource(R.mipmap.sandwich);
-            new_button.setText(cat_names.get(i));
-            new_button.setTextColor(Color.parseColor("#ffffff"));
-            GridLayout.LayoutParams param = new GridLayout.LayoutParams();
-            param.height = GridLayout.LayoutParams.WRAP_CONTENT;
-            param.width = GridLayout.LayoutParams.WRAP_CONTENT;
-            param.rightMargin = 5;
-            param.topMargin = 5;
-            param.setGravity(Gravity.CENTER);
+            ImageButton new_button = new ImageButton(this);
+
+            try{
+                new_button.setImageResource(R.mipmap.class.getField("category_"+cat_names.get(i).toLowerCase()).getInt("id"));
+            }
+            catch (Exception e)
+            {
+                Log.w("buttonbuilder", "Failed to get image with name: " + "category_"+cat_names.get(i).toLowerCase());
+                new_button.setImageResource(R.mipmap.sandwich);
+            }
+            // 0 is id, 1 is name
+            new_button.setTag(R.string.button_id_tag, cat_ids.get(i));
+            new_button.setTag(R.string.button_name_tag, cat_names.get(i));
+            new_button.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            new_button.setOnClickListener(cat_listener);
+
+            GridLayout.LayoutParams b_param = new GridLayout.LayoutParams();
+            b_param.height = GridLayout.LayoutParams.WRAP_CONTENT;
+            b_param.width = GridLayout.LayoutParams.WRAP_CONTENT;
+            b_param.rightMargin = 5;
+            b_param.topMargin = 5;
+            b_param.setGravity(Gravity.CENTER);
+
             try {
-                param.columnSpec = GridLayout.spec(c, 1f);
+                b_param.columnSpec = GridLayout.spec(c, 1f);
             }
             catch (NoSuchMethodError e)
             {
-                param.columnSpec = GridLayout.spec(c);
+                b_param.columnSpec = GridLayout.spec(c);
             }
-            param.rowSpec = GridLayout.spec(r);
-            new_button.setLayoutParams(param);
+            b_param.rowSpec = GridLayout.spec(r*2);
+            new_button.setLayoutParams(b_param);
             gridLayout.addView(new_button);
+
+            TextView new_text = new TextView(this);
+            new_text.setText(cat_names.get(i));
+            new_text.setTextColor(Color.parseColor("#ffffff"));
+            new_text.setGravity(Gravity.CENTER);
+            GridLayout.LayoutParams t_param = new GridLayout.LayoutParams();
+            t_param.height = GridLayout.LayoutParams.WRAP_CONTENT;
+            t_param.width = GridLayout.LayoutParams.WRAP_CONTENT;
+            t_param.rightMargin = 5;
+            t_param.topMargin = 5;
+
+            try {
+                t_param.columnSpec = GridLayout.spec(c, 1f);
+            }
+            catch (NoSuchMethodError e)
+            {
+                t_param.columnSpec = GridLayout.spec(c);
+            }
+            t_param.rowSpec = GridLayout.spec(r*2+1);
+            new_text.setLayoutParams(t_param);
+            gridLayout.addView(new_text);
         }
     }
 }
