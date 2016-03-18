@@ -31,6 +31,12 @@ public class MainIngredient extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // Recieve data from category
+        Intent received_intent = getIntent();
+        System.out.println("after intent:");
+        System.out.println(received_intent.getStringExtra("category_id"));
+        System.out.println(received_intent.getStringExtra("category_name"));
     }
 
     // Function for Main Ingredient buttons

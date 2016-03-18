@@ -1,6 +1,7 @@
 package com.greenjacket.greenjacket;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,16 +35,21 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.greenjacket.greenjacket.CategoryExtras;
+
 public class MainActivity extends AppCompatActivity {
     public JSONObject menu_data;
     public boolean demo = true;
     public Context main_context;
+    public CategoryExtras extras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Start downloading menu data
         main_context = this;
+
+        extras = new CategoryExtras(main_context, this);
 
         if (!demo) {
             new DownloadMenu().execute();
@@ -56,35 +62,21 @@ public class MainActivity extends AppCompatActivity {
         toolbar_support.setTitle("Green Jacket");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Snackbar.make(view, "Are you ready to check out?", Snackbar.LENGTH_LONG)
-                //      .setAction("Action", null).show();
                 Intent to_checkout = new Intent(main_context, Checkout.class);
-                //System.out.println("button id is" + view.getId());
                 startActivity(to_checkout);
-
             }
         });
 
         Intent received_intent = getIntent();
-        if(received_intent.getBooleanExtra("item_added", false))
-        {
+        if (received_intent.getBooleanExtra("item_added", false)) {
 
-            View this_view = this.findViewById(android.R.id.content);
-            // fab id is 2131492970
-
-            //this_view = this.findViewById(android.R.id.content).findViewWithTag("category fab");
-            this_view = this.findViewById(R.id.fab);
+            View this_view = this.findViewById(R.id.fab);
             Snackbar.make(this_view, "Item added to cart", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
-
-
-
     }
 
     @Override
@@ -109,20 +101,11 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
     // Function for meat button in demo
     public void MeatButton(View view) {
         // Do something in response to button
         Intent to_main_ing = new Intent(this, MainIngredient.class);
-
-        switch(view.getId())
-        {
-            case R.id.meat_button: // Meat
-                to_main_ing.putExtra("category", "meat");
-                break;
-        }
-
+        to_main_ing.putExtra("category", "meat");
         startActivity(to_main_ing);
     }
 
@@ -134,66 +117,18 @@ public class MainActivity extends AppCompatActivity {
         //private final String url_base = "http://localhost:8000";
         private final String url_base = "http://10.0.2.2:8000"; // use this for localhost in emulator
 
-        protected String doInBackground(String... urls) {
-
+        protected String doInBackground(String... urls)
+        {
             // params comes from the execute() call: params[0] is the url.
-            try {
-                URL url = new URL(url_base + "/GJ_app/data/customer/menu/?branch=1");
-
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.setDoInput(true);
-                urlConnection.connect();
-
-                int response = urlConnection.getResponseCode();
-                Log.d(LogTag, "Response for menu: " + response);
-
-                InputStream inputStream = urlConnection.getInputStream();
-                if (inputStream == null) {
-                    Log.e(LogTag, "url gave empty response");
-                    return "";
-                }
-
-                StringBuffer buffer = new StringBuffer();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
-                    // But it does make debugging a *lot* easier if you print out the completed
-                    // buffer for debugging.
-                    buffer.append(line + "\n");
-                }
-
-                if (buffer.length() == 0) {
-                    Log.e(LogTag, "buffer was empty");
-                    return "";
-                }
-
-                String ret_string = buffer.toString();
-                return ret_string;
-            } catch (IOException e) {
-
-                Log.e(LogTag, "Error ", e);
-                return "Unable to retrieve web page. URL may be invalid.";
-            }
+            return extras.DownloadMenuDo(url_base);
         }
+
         // onPostExecute displays the results of the AsyncTask.
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(String result)
+        {
             // What to do with menu?
-            Log.d(LogTag, "result is " + result);
-            String menu_string = result;
-
-            try {
-                menu_data = new JSONObject(menu_string);
-                Log.d(LogTag, "menu_data is " + menu_data.toString());
-                CreateCategoryButtons();
-            }
-            catch (JSONException e)
-            {
-                Log.e(LogTag, "Problem creating/querying json data. " + e);
-            }
-
+            menu_data = extras.DownloadMenuPost(result);
             super.onPostExecute(result);
         }
     }
@@ -201,112 +136,7 @@ public class MainActivity extends AppCompatActivity {
     // Function for actual category buttons
     public void CategoryButton (View view)
     {
-        // Do something in response to button
-        Intent to_main_ing = new Intent(this, MainIngredient.class);
-
-        System.out.println(view.getTag(R.string.button_id_tag));
-        System.out.println(view.getTag(R.string.button_name_tag));
-
-        /*switch(view.getTag())
-        {
-            case st_1: // Meat
-                to_main_ing.putExtra("category", "meat");
-                break;
-        }*/
-
-        startActivity(to_main_ing);
-    }
-
-    public void CreateCategoryButtons () throws JSONException
-    {
-        JSONObject categories = menu_data.getJSONObject("categories");
-        //System.out.println(menu_data.getJSONObject("categories"));
-
-        ArrayList <String> cat_names = new ArrayList<String>();
-        ArrayList <String> cat_ids = new ArrayList<String>();
-
-        for(Iterator<String> cat_iter = categories.keys(); cat_iter.hasNext();) {
-            String key = cat_iter.next();
-            String new_name = categories.getJSONObject(key).getString("name");
-            //System.out.println(new_name);
-            cat_names.add(new_name);
-            cat_ids.add(key);
-        }
-
-        View.OnClickListener cat_listener = new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                CategoryButton(v);
-            }
-        };
-
-        GridLayout gridLayout = (GridLayout) findViewById(R.id.main_content);
-        gridLayout.removeAllViews();
-        int total = cat_names.size();
-        int column = 3;
-        int row = total / column;
-        gridLayout.setColumnCount(column);
-        gridLayout.setRowCount((row + 1) * 2);
-        for (int i = 0, c = 0, r = 0; i < total; i++, c++) {
-            if (c == column) {
-                c = 0;
-                r++;
-            }
-            ImageButton new_button = new ImageButton(this);
-
-            try{
-                new_button.setImageResource(R.mipmap.class.getField("category_"+cat_names.get(i).toLowerCase()).getInt("id"));
-            }
-            catch (Exception e)
-            {
-                Log.w("buttonbuilder", "Failed to get image with name: " + "category_"+cat_names.get(i).toLowerCase());
-                new_button.setImageResource(R.mipmap.sandwich);
-            }
-            // 0 is id, 1 is name
-            new_button.setTag(R.string.button_id_tag, cat_ids.get(i));
-            new_button.setTag(R.string.button_name_tag, cat_names.get(i));
-            new_button.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            new_button.setOnClickListener(cat_listener);
-
-            GridLayout.LayoutParams b_param = new GridLayout.LayoutParams();
-            b_param.height = GridLayout.LayoutParams.WRAP_CONTENT;
-            b_param.width = GridLayout.LayoutParams.WRAP_CONTENT;
-            b_param.rightMargin = 5;
-            b_param.topMargin = 5;
-            b_param.setGravity(Gravity.CENTER);
-
-            try {
-                b_param.columnSpec = GridLayout.spec(c, 1f);
-            }
-            catch (NoSuchMethodError e)
-            {
-                b_param.columnSpec = GridLayout.spec(c);
-            }
-            b_param.rowSpec = GridLayout.spec(r*2);
-            new_button.setLayoutParams(b_param);
-            gridLayout.addView(new_button);
-
-            TextView new_text = new TextView(this);
-            new_text.setText(cat_names.get(i));
-            new_text.setTextColor(Color.parseColor("#ffffff"));
-            new_text.setGravity(Gravity.CENTER);
-            GridLayout.LayoutParams t_param = new GridLayout.LayoutParams();
-            t_param.height = GridLayout.LayoutParams.WRAP_CONTENT;
-            t_param.width = GridLayout.LayoutParams.WRAP_CONTENT;
-            t_param.rightMargin = 5;
-            t_param.topMargin = 5;
-
-            try {
-                t_param.columnSpec = GridLayout.spec(c, 1f);
-            }
-            catch (NoSuchMethodError e)
-            {
-                t_param.columnSpec = GridLayout.spec(c);
-            }
-            t_param.rowSpec = GridLayout.spec(r*2+1);
-            new_text.setLayoutParams(t_param);
-            gridLayout.addView(new_text);
-        }
+        extras.CategoryButton(view);
     }
 }
 
