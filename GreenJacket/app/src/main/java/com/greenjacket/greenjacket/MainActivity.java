@@ -39,17 +39,18 @@ import com.greenjacket.greenjacket.CategoryExtras;
 
 public class MainActivity extends AppCompatActivity {
     public JSONObject menu_data;
-    public boolean demo = true;
+    public boolean demo = false;
     public Context main_context;
     public CategoryExtras extras;
+    public static MainActivity instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Start downloading menu data
         main_context = this;
-
         extras = new CategoryExtras(main_context, this);
+        instance = this;
 
         if (!demo) {
             new DownloadMenu().execute();
