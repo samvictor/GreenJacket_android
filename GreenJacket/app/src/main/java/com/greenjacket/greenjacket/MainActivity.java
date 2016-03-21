@@ -117,13 +117,14 @@ public class MainActivity extends AppCompatActivity {
     // Get data from website
     private class DownloadMenu extends AsyncTask<String, Void, String> {
         private final String LogTag = DownloadMenu.class.getSimpleName();
-        //private final String url_base = "http://localhost:8000";
-        private final String url_base = "http://10.0.2.2:8000"; // use this for localhost in emulator
+        //private final String url_str = "http://localhost:8000/GJ_app/data/customer/menu/?branch=1";
+        //private final String url_str = "http://10.0.2.2:8000/GJ_app/data/customer/menu/?branch=1"; // use this for localhost in emulator
+        private final String url_str = "http://www.saminniss.com/gh_pages_test/gj_data.json"; // online
 
         protected String doInBackground(String... urls)
         {
             // params comes from the execute() call: params[0] is the url.
-            return extras.DownloadMenuDo(url_base);
+            return extras.DownloadMenuDo(url_str);
         }
 
         // onPostExecute displays the results of the AsyncTask.

@@ -89,7 +89,6 @@ public class CategoryExtras {
                 Log.w("buttonbuilder", "Failed to get image with name: " + image_prefix + CleanForImage(names.get(i)));
                 new_button.setImageResource(R.mipmap.sandwich);
             }
-            // 0 is id, 1 is name
             new_button.setTag(R.string.button_id_tag, ids.get(i));
             new_button.setTag(R.string.button_name_tag, names.get(i));
             new_button.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -121,7 +120,15 @@ public class CategoryExtras {
             });
 
             final TextView new_text = new TextView(context);
-            new_text.setText(names.get(i));
+
+            String text_string = names.get(i);
+            if (text_string.length() > 16)
+            {
+                text_string = text_string.substring(0, 16);
+                Log.w("buttonbuilder", "Text "+names.get(i)+" too long for button, truncating");
+            }
+            new_text.setText(text_string);
+
             new_text.setTextColor(Color.parseColor("#ffffff"));
             new_text.setGravity(Gravity.CENTER);
             GridLayout.LayoutParams t_param = new GridLayout.LayoutParams();
@@ -153,11 +160,11 @@ public class CategoryExtras {
 
     private final String LogTag = "Category Extras";
 
-    public String DownloadMenuDo(String url_base)
+    public String DownloadMenuDo(String url_str)
     {
         // params comes from the execute() call: params[0] is the url.
         try {
-            URL url = new URL(url_base + "/GJ_app/data/customer/menu/?branch=1");
+            URL url = new URL(url_str);
 
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
@@ -215,7 +222,6 @@ public class CategoryExtras {
             for(Iterator<String> cat_iter = categories.keys(); cat_iter.hasNext();) {
                 String key = cat_iter.next();
                 String new_name = categories.getJSONObject(key).getString("name");
-                //System.out.println(new_name);
                 cat_names.add(new_name);
                 cat_ids.add(key);
             }
