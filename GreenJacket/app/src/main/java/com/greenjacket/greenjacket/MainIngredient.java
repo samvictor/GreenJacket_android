@@ -75,7 +75,7 @@ public class MainIngredient extends AppCompatActivity {
         }
 
     }
-
+    
     // Function for Main Ingredient buttons
     public void BurgerMeatButton(View view) {
         // Do something in response to button

@@ -58,6 +58,18 @@ public class CategoryExtras {
         CreateCategoryButtons();
     }
 
+    // optional argument add_to_front
+    public String CleanForImage(String raw_string)
+    {
+        // create a new copy
+        String out_str = new String(raw_string);
+        out_str = out_str.toLowerCase();
+        out_str = out_str.replace(" ", "_");
+        out_str = out_str.replaceAll("[^a-z|_|0-9]+", "");
+
+        return out_str;
+    }
+
     public void CreateCategoryButtons () throws JSONException
     {
 
@@ -97,11 +109,11 @@ public class CategoryExtras {
             ImageButton new_button = new ImageButton(main_context);
 
             try{
-                new_button.setImageResource(R.mipmap.class.getField("category_"+cat_names.get(i).toLowerCase()).getInt("id"));
+                new_button.setImageResource(R.mipmap.class.getField("category_" + CleanForImage(cat_names.get(i))).getInt("id"));
             }
             catch (Exception e)
             {
-                Log.w("buttonbuilder", "Failed to get image with name: " + "category_" + cat_names.get(i).toLowerCase());
+                Log.w("buttonbuilder", "Failed to get image with name: " + "category_" + CleanForImage(cat_names.get(i)));
                 new_button.setImageResource(R.mipmap.sandwich);
             }
             // 0 is id, 1 is name
