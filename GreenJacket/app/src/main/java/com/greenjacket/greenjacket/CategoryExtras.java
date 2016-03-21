@@ -32,8 +32,8 @@ import java.util.Iterator;
 public class CategoryExtras {
     public String test = "test";
     public JSONObject menu_data;
-    public Context main_context;
-    public MainActivity main_activity;
+    public static Context main_context;
+    public static MainActivity main_activity;
 
     public CategoryExtras (Context new_context, MainActivity new_main_activity) {
         //setContentView(R.layout.activity_main);
@@ -52,14 +52,7 @@ public class CategoryExtras {
         main_activity.startActivity(to_main_ing);
     }
 
-    public void CreateCategoryButtons(JSONObject in_menu_data) throws JSONException
-    {
-        menu_data = in_menu_data;
-        CreateCategoryButtons();
-    }
-
-    // optional argument add_to_front
-    public String CleanForImage(String raw_string)
+    public static String CleanForImage(String raw_string)
     {
         // create a new copy
         String out_str = new String(raw_string);
@@ -70,33 +63,13 @@ public class CategoryExtras {
         return out_str;
     }
 
-    public void CreateCategoryButtons () throws JSONException
+    // creates buttons. uses image_prefex+name to get image
+    public static void CreateButtons (ArrayList<String> ids, ArrayList<String> names,
+                                       View.OnClickListener listener, String image_prefix,
+                                      final GridLayout gridLayout, Context context, Activity activity)
     {
-
-        JSONObject categories = menu_data.getJSONObject("categories");
-        //System.out.println(menu_data.getJSONObject("categories"));
-
-        ArrayList<String> cat_names = new ArrayList<String>();
-        ArrayList <String> cat_ids = new ArrayList<String>();
-
-        for(Iterator<String> cat_iter = categories.keys(); cat_iter.hasNext();) {
-            String key = cat_iter.next();
-            String new_name = categories.getJSONObject(key).getString("name");
-            //System.out.println(new_name);
-            cat_names.add(new_name);
-            cat_ids.add(key);
-        }
-
-        View.OnClickListener cat_listener = new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                CategoryButton(v);
-            }
-        };
-
-        GridLayout gridLayout = (GridLayout) main_activity.findViewById(R.id.main_content);
         gridLayout.removeAllViews();
-        int total = cat_names.size();
+        int total = names.size();
         int column = 3;
         int row = total / column;
         gridLayout.setColumnCount(column);
@@ -106,21 +79,21 @@ public class CategoryExtras {
                 c = 0;
                 r++;
             }
-            ImageButton new_button = new ImageButton(main_context);
+            final ImageButton new_button = new ImageButton(context);
 
             try{
-                new_button.setImageResource(R.mipmap.class.getField("category_" + CleanForImage(cat_names.get(i))).getInt("id"));
+                new_button.setImageResource(R.mipmap.class.getField(image_prefix + CleanForImage(names.get(i))).getInt("id"));
             }
             catch (Exception e)
             {
-                Log.w("buttonbuilder", "Failed to get image with name: " + "category_" + CleanForImage(cat_names.get(i)));
+                Log.w("buttonbuilder", "Failed to get image with name: " + image_prefix + CleanForImage(names.get(i)));
                 new_button.setImageResource(R.mipmap.sandwich);
             }
             // 0 is id, 1 is name
-            new_button.setTag(R.string.button_id_tag, cat_ids.get(i));
-            new_button.setTag(R.string.button_name_tag, cat_names.get(i));
+            new_button.setTag(R.string.button_id_tag, ids.get(i));
+            new_button.setTag(R.string.button_name_tag, names.get(i));
             new_button.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            new_button.setOnClickListener(cat_listener);
+            new_button.setOnClickListener(listener);
 
             GridLayout.LayoutParams b_param = new GridLayout.LayoutParams();
             b_param.height = GridLayout.LayoutParams.WRAP_CONTENT;
@@ -138,10 +111,17 @@ public class CategoryExtras {
             }
             b_param.rowSpec = GridLayout.spec(r*2);
             new_button.setLayoutParams(b_param);
-            gridLayout.addView(new_button);
 
-            TextView new_text = new TextView(main_context);
-            new_text.setText(cat_names.get(i));
+            // updating ui must be done on main thread
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    gridLayout.addView(new_button);
+                }
+            });
+
+            final TextView new_text = new TextView(context);
+            new_text.setText(names.get(i));
             new_text.setTextColor(Color.parseColor("#ffffff"));
             new_text.setGravity(Gravity.CENTER);
             GridLayout.LayoutParams t_param = new GridLayout.LayoutParams();
@@ -159,7 +139,15 @@ public class CategoryExtras {
             }
             t_param.rowSpec = GridLayout.spec(r*2+1);
             new_text.setLayoutParams(t_param);
-            gridLayout.addView(new_text);
+
+            // updating ui must be done on main thread
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    gridLayout.addView(new_text);
+                }
+            });
+
         }
     }
 
@@ -217,7 +205,30 @@ public class CategoryExtras {
         try {
             menu_data = new JSONObject(menu_string);
             Log.d(LogTag, "menu_data is " + menu_data.toString());
-            CreateCategoryButtons();
+
+            JSONObject categories = menu_data.getJSONObject("categories");
+            //System.out.println(menu_data.getJSONObject("categories"));
+
+            ArrayList <String> cat_names = new ArrayList<String>();
+            ArrayList <String> cat_ids = new ArrayList<String>();
+
+            for(Iterator<String> cat_iter = categories.keys(); cat_iter.hasNext();) {
+                String key = cat_iter.next();
+                String new_name = categories.getJSONObject(key).getString("name");
+                //System.out.println(new_name);
+                cat_names.add(new_name);
+                cat_ids.add(key);
+            }
+
+            View.OnClickListener cat_listener = new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    CategoryButton(v);
+                }
+            };
+
+            GridLayout grid_layout = (GridLayout) main_activity.findViewById(R.id.main_content);
+            CreateButtons(cat_ids, cat_names, cat_listener, "category_", grid_layout, main_context, main_activity);
         }
         catch (JSONException e)
         {

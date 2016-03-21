@@ -10,7 +10,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.greenjacket.greenjacket.MainIngredient"
-    tools:showIn="@layout/activity_main_ingredient">
+    tools:showIn="@layout/activity_main_ingredient"
+    android:id="@+id/main_ingredient_content">
 
     <ImageButton
         android:layout_width="@dimen/button_width"

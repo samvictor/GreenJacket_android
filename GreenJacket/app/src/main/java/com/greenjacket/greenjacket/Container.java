@@ -7,12 +7,23 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
+import org.json.JSONObject;
+
 public class Container extends AppCompatActivity {
+    public Boolean demo;
+    public MainActivity main_activity;
+    public JSONObject menu_data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        main_activity = MainActivity.instance;
+        menu_data = main_activity.menu_data;
+        demo = main_activity.demo;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -34,8 +45,11 @@ public class Container extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Intent intent = getIntent();
-        //System.out.println("from intent " + intent.getStringExtra("category"));
+        if (!demo) {
+            Intent intent = getIntent();
+            Log.d("Container", "from intent " + intent.getStringExtra("main_opt_id"));
+            Log.d("Container", "from intent " + intent.getStringExtra("main_opt_name"));
+        }
     }
 
     public void ContainerBurgerButton(View view) {

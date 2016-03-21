@@ -38,22 +38,24 @@ import java.util.Iterator;
 import com.greenjacket.greenjacket.CategoryExtras;
 
 public class MainActivity extends AppCompatActivity {
-    public JSONObject menu_data;
-    public boolean demo = false;
+    public JSONObject menu_data = null;
+    public boolean demo = true;
     public Context main_context;
     public CategoryExtras extras;
     public static MainActivity instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        main_context = this;
         super.onCreate(savedInstanceState);
         // Start downloading menu data
-        main_context = this;
         extras = new CategoryExtras(main_context, this);
         instance = this;
 
-        if (!demo) {
+        if (!demo && menu_data == null) {
             new DownloadMenu().execute();
+            System.out.println("downloading menu");
         }
         setContentView(R.layout.activity_main);
 
