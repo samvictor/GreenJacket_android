@@ -22,6 +22,16 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_checkout" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/cats_scrollView"
+        android:paddingTop="50dp">
+
+        <include layout="@layout/content_checkout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </ScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -4,7 +4,8 @@
     <color name="colorPrimaryDark">#004e05</color>
     <color name="colorAccent">#00ba12</color>
     <!--color name="colorBackground">#3b3b3b</color-->
-    <color name="colorBackground">@color/material_grey_850</color>
+    <color name="colorBackground">#ff303030</color>
+    <color name="colorFabBackground">#6f000000</color>
 
 
 </resources>

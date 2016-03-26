@@ -22,7 +22,17 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_size" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/cats_scrollView"
+        android:paddingTop="50dp">
+
+        <include layout="@layout/content_size"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -32,6 +42,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@mipmap/shopping_cart"
         android:scaleType="center"
-        app:backgroundTint="#000000ff" />
+        android:adjustViewBounds="false"
+        app:backgroundTint="@color/colorFabBackground"/>
 
 </android.support.design.widget.CoordinatorLayout>

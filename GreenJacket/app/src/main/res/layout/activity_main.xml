@@ -26,13 +26,14 @@
             android:layout_height="match_parent" />
         
     </ScrollView>
+
     <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
         android:src="@mipmap/shopping_cart"
         android:scaleType="center"
         android:adjustViewBounds="false"
-        app:backgroundTint="#00ffffff"
+        app:backgroundTint="@color/colorFabBackground"
         android:tag="category fab"/>
 
 </android.support.design.widget.CoordinatorLayout>
