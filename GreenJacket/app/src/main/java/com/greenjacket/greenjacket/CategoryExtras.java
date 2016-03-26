@@ -123,9 +123,9 @@ public class CategoryExtras {
             final TextView new_text = new TextView(context);
 
             String text_string = names.get(i);
-            if (text_string.length() > 16)
+            if (text_string.length() > 25)
             {
-                text_string = text_string.substring(0, 16);
+                text_string = text_string.substring(0, 25);
                 Log.w("buttonbuilder", "Text "+names.get(i)+" too long for button, truncating");
             }
 
