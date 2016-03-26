@@ -95,8 +95,8 @@ public class CategoryExtras {
             new_button.setOnClickListener(listener);
 
             GridLayout.LayoutParams b_param = new GridLayout.LayoutParams();
-            b_param.height = GridLayout.LayoutParams.WRAP_CONTENT;
-            b_param.width = GridLayout.LayoutParams.WRAP_CONTENT;
+            b_param.height = (int) context.getResources().getDimension(R.dimen.button_height);
+            b_param.width = (int) context.getResources().getDimension(R.dimen.button_width);
             b_param.rightMargin = 5;
             b_param.topMargin = 5;
             b_param.setGravity(Gravity.CENTER);
@@ -106,6 +106,7 @@ public class CategoryExtras {
             }
             catch (NoSuchMethodError e)
             {
+                Log.w("buttonbuilder", "Not using weight");
                 b_param.columnSpec = GridLayout.spec(c);
             }
             b_param.rowSpec = GridLayout.spec(r*2);
@@ -127,13 +128,14 @@ public class CategoryExtras {
                 text_string = text_string.substring(0, 16);
                 Log.w("buttonbuilder", "Text "+names.get(i)+" too long for button, truncating");
             }
-            new_text.setText(text_string);
 
+            new_text.setText(text_string+"\n");
             new_text.setTextColor(Color.parseColor("#ffffff"));
-            new_text.setGravity(Gravity.CENTER);
+            new_text.setGravity(Gravity.CENTER_HORIZONTAL);
+            new_text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             GridLayout.LayoutParams t_param = new GridLayout.LayoutParams();
             t_param.height = GridLayout.LayoutParams.WRAP_CONTENT;
-            t_param.width = GridLayout.LayoutParams.WRAP_CONTENT;
+            t_param.width = (int) context.getResources().getDimension(R.dimen.button_width);
             t_param.rightMargin = 5;
             t_param.topMargin = 5;
 
