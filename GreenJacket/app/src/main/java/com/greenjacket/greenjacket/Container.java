@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Container extends AppCompatActivity {
@@ -17,18 +18,55 @@ public class Container extends AppCompatActivity {
     public MainActivity main_activity;
     public JSONObject menu_data;
 
+    // not in main activity
+    public Context container_context;
+    public ContainerExtras extras;
+    public JSONObject container_data;
+    public static Context instance;
+
+    public String category_id;
+    public String category_name;
+    public String main_opt_id;
+    public String main_opt_name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         main_activity = MainActivity.instance;
         menu_data = main_activity.menu_data;
         demo = main_activity.demo;
+        instance = this;
+        container_context = this;
+        extras = new ContainerExtras(container_context, this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Container");
+
+
+        if (!demo) {
+            Intent intent = getIntent();
+            category_id = intent.getStringExtra("category_id");
+            category_name = intent.getStringExtra("category_name");
+            main_opt_id = intent.getStringExtra("main_opt_id");
+            main_opt_name = intent.getStringExtra("main_opt_name");
+            //Log.d("Container", "from intent " + intent.getStringExtra("main_opt_name"));
+
+            try {
+                container_data = menu_data.getJSONObject("categories").getJSONObject(category_id).getJSONObject("mains").getJSONObject(main_opt_id);
+                System.out.println(container_data);
+            }
+            catch (JSONException e)
+            {
+                Log.e("Container", "Error getting data from main option: " + e.toString());
+            }
+
+            //new CreateContainerButtons().execute();
+
+        }
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         final Context container_context = this;
@@ -44,12 +82,6 @@ public class Container extends AppCompatActivity {
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        if (!demo) {
-            Intent intent = getIntent();
-            Log.d("Container", "from intent " + intent.getStringExtra("main_opt_id"));
-            Log.d("Container", "from intent " + intent.getStringExtra("main_opt_name"));
-        }
     }
 
     public void ContainerBurgerButton(View view) {

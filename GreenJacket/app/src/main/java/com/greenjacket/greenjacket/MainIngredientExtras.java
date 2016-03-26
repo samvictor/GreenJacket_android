@@ -29,6 +29,8 @@ public class MainIngredientExtras {
         // Do something in response to button
         Intent to_container = new Intent(main_opt_context, Container.class);
 
+        to_container.putExtra("category_id", main_opt_activity.category_id);
+        to_container.putExtra("category_name", main_opt_activity.category_name);
         to_container.putExtra("main_opt_id", view.getTag(R.string.button_id_tag).toString());
         to_container.putExtra("main_opt_name", view.getTag(R.string.button_name_tag).toString());
 

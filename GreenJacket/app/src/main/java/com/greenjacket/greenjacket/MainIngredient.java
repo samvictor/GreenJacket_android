@@ -28,6 +28,9 @@ public class MainIngredient extends AppCompatActivity {
     public JSONObject main_opt_data;
     public static  MainIngredient instance;
 
+    public String category_id;
+    public String category_name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,14 +54,15 @@ public class MainIngredient extends AppCompatActivity {
         if (!demo)
         {
             Intent received_intent = getIntent();
-            System.out.println("after intent:");
-            System.out.println(received_intent.getStringExtra("category_id"));
-            System.out.println(received_intent.getStringExtra("category_name"));
+            //System.out.println("after intent:");
+            //System.out.println(received_intent.getStringExtra("category_id"));
+            //System.out.println(received_intent.getStringExtra("category_name"));
 
-            String category_id = received_intent.getStringExtra("category_id");
+            category_id = received_intent.getStringExtra("category_id");
+            category_name = received_intent.getStringExtra("category_name");
             try {
                 main_opt_data = menu_data.getJSONObject("categories").getJSONObject(category_id);
-                System.out.println(main_opt_data);
+                //System.out.println(main_opt_data);
             }
             catch (JSONException e)
             {

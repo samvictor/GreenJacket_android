@@ -68,6 +68,8 @@ public class CategoryExtras {
                                        View.OnClickListener listener, String image_prefix,
                                       final GridLayout gridLayout, Context context, Activity activity)
     {
+        String LogTag = "createButton";
+
         gridLayout.removeAllViews();
         int total = names.size();
         int column = 3;
@@ -86,7 +88,7 @@ public class CategoryExtras {
             }
             catch (Exception e)
             {
-                Log.w("buttonbuilder", "Failed to get image with name: " + image_prefix + CleanForImage(names.get(i)));
+                Log.w(LogTag, "Failed to get image with name: " + image_prefix + CleanForImage(names.get(i)));
                 new_button.setImageResource(R.mipmap.sandwich);
             }
             new_button.setTag(R.string.button_id_tag, ids.get(i));
@@ -106,7 +108,7 @@ public class CategoryExtras {
             }
             catch (NoSuchMethodError e)
             {
-                Log.w("buttonbuilder", "Not using weight");
+                Log.w(LogTag, "Not using weight");
                 b_param.columnSpec = GridLayout.spec(c);
             }
             b_param.rowSpec = GridLayout.spec(r*2);
@@ -126,7 +128,7 @@ public class CategoryExtras {
             if (text_string.length() > 25)
             {
                 text_string = text_string.substring(0, 25);
-                Log.w("buttonbuilder", "Text "+names.get(i)+" too long for button, truncating");
+                Log.w(LogTag, "Text "+names.get(i)+" too long for button, truncating");
             }
 
             new_text.setText(text_string+"\n");

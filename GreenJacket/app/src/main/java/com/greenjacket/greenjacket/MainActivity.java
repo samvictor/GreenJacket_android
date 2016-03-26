@@ -39,7 +39,7 @@ import com.greenjacket.greenjacket.CategoryExtras;
 
 public class MainActivity extends AppCompatActivity {
     public JSONObject menu_data = null;
-    public boolean demo = false;
+    public boolean demo = true;
     public Context main_context;
     public CategoryExtras extras;
     public static MainActivity instance;
