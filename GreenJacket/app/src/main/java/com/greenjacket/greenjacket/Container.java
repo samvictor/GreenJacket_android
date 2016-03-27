@@ -2,6 +2,7 @@ package com.greenjacket.greenjacket;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -63,7 +64,7 @@ public class Container extends AppCompatActivity {
                 Log.e("Container", "Error getting data from main option: " + e.toString());
             }
 
-            //new CreateContainerButtons().execute();
+            new CreateContainerButtons().execute();
 
         }
 
@@ -97,5 +98,33 @@ public class Container extends AppCompatActivity {
 
         to_size.putExtra("item_added", true);
         startActivity(to_size);
+    }
+
+    public void ContainerButton(View view)
+    {
+        extras.ContainerButton(view);
+    }
+
+    private class CreateContainerButtons extends AsyncTask<String, String, Boolean>
+    {
+        private final String LogTag = CreateContainerButtons.class.getSimpleName();
+        protected Boolean doInBackground(String... url)
+        {
+            try {
+                extras.CreateContainerButtonsDo(container_data.getJSONObject("containers"));
+            }
+            catch (JSONException e)
+            {
+                Log.e(LogTag, "Error getting mains: " + e.toString());
+            }
+            return true;
+        }
+
+        // onPostExecute displays the results of the AsyncTask.
+        @Override
+        protected void onPostExecute(Boolean success)
+        {
+            super.onPostExecute(true);
+        }
     }
 }

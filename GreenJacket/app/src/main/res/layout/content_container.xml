@@ -11,6 +11,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.greenjacket.greenjacket.Container"
     tools:showIn="@layout/activity_container"
+    android:id="@+id/container_content"
     android:textAlignment="center">
 
     <ImageButton
