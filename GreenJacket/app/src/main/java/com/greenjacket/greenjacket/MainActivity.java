@@ -60,9 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
-
         main_context = this;
         super.onCreate(savedInstanceState);
         // Start downloading menu data
@@ -88,13 +85,41 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(to_checkout);
             }
         });
+    }
 
+    @Override
+    protected void onResume()
+    {
+        Log.d("Main Activity","on resume");
         Intent received_intent = getIntent();
+
+        //received_intent.putExtra("item_addeded", true);
+        //System.out.println("Intent I got is " + received_intent.getExtras());
         if (received_intent.getBooleanExtra("item_added", false)) {
 
             View this_view = this.findViewById(R.id.fab);
             Snackbar.make(this_view, "Item added to cart", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
+
+            received_intent.removeExtra("item_added");
+        }
+        super.onResume();
+    }
+
+    public void onNewIntent()
+    {
+        Log.d("Main Activity", "on new intent");
+        Intent received_intent = getIntent();
+
+        //received_intent.putExtra("on new intent", true);
+        //System.out.println("Intent I got is " + received_intent.getExtras());
+        if (received_intent.getBooleanExtra("item_added", false)) {
+
+            View this_view = this.findViewById(R.id.fab);
+            Snackbar.make(this_view, "Item added to cart", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+
+            received_intent.removeExtra("item_added");
         }
     }
 
@@ -200,10 +225,15 @@ public class MainActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK) {
                 String contents = intent.getStringExtra("SCAN_RESULT");
                 String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
-                Toast.makeText(this,
+                /*Toast.makeText(this,
                         //"Content:" + contents + " Format:" + format,
                         "Getting menu for from company: " + contents,
                         Toast.LENGTH_LONG).show();
+*/
+                View this_view = this.findViewById(R.id.fab);
+                Snackbar.make(this_view,
+                        "Getting menu for from company: " + contents, Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
 
                 url_args = "?branch="+contents;
                 branch_id = contents;

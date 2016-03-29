@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -204,6 +205,10 @@ public class CategoryExtras {
         } catch (IOException e) {
 
             Log.e(LogTag, "Error ", e);
+            View this_view = main_activity.findViewById(R.id.fab);
+            Snackbar.make(this_view, "Error Fetching Menu", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+
             return "Unable to retrieve web page. URL may be invalid.";
         }
     }
