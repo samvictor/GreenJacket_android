@@ -2,15 +2,19 @@ package com.greenjacket.greenjacket;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -23,6 +27,7 @@ import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,6 +44,9 @@ import java.util.Iterator;
 import com.greenjacket.greenjacket.CategoryExtras;
 
 public class MainActivity extends AppCompatActivity {
+    //For the Scan QR code
+    static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
+
     public JSONObject menu_data = null;
     public boolean demo = true;
     public Context main_context;
@@ -47,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
 
         main_context = this;
         super.onCreate(savedInstanceState);
@@ -117,6 +127,81 @@ public class MainActivity extends AppCompatActivity {
         to_main_ing.putExtra("category", "meat");
         startActivity(to_main_ing);
     }
+
+    // QR Code Scanning code
+    public void scanBar(View v) {
+        try {
+            Intent intent = new Intent(ACTION_SCAN);
+            intent.putExtra("SCAN_MODE", "PRODUCT_MODE");
+            startActivityForResult(intent, 0);
+        } catch (ActivityNotFoundException e) {
+            showDialog(MainActivity.this, "No Scanner Found",
+                    "Download a scanner code activity?", "Yes", "No").show();
+        }
+    }
+
+    public void scanQR(View v) {
+        try {
+            Intent intent = new Intent(ACTION_SCAN);
+            intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+            startActivityForResult(intent, 0);
+        } catch (ActivityNotFoundException e) {
+            showDialog(MainActivity.this, "No Scanner Found",
+                    "Download a scanner code activity?", "Yes", "No").show();
+        }
+    }
+
+    private static AlertDialog showDialog(final AppCompatActivity act,
+                                          CharSequence title, CharSequence message, CharSequence buttonYes,
+                                          CharSequence buttonNo) {
+
+        AlertDialog.Builder dowloadDialog = new AlertDialog.Builder(act);
+        dowloadDialog
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(buttonYes,
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                Uri uri = Uri.parse("market://search?q=pname:"
+                                        + "com.google.zxing.client.android");
+
+                                Intent intent = new Intent(Intent.ACTION_VIEW,
+                                        uri);
+                                try {
+                                    act.startActivity(intent);
+                                } catch (ActivityNotFoundException e) {
+                                }
+
+                            }
+                        })
+                .setNegativeButton(buttonNo,
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                            }
+                        });
+
+        return dowloadDialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if(requestCode == 0) {
+            if(resultCode == RESULT_OK) {
+                String contents = intent.getStringExtra("SCAN_RESULT");
+                String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
+                Toast.makeText(this,
+                        "Content:" + contents + " Format:" + format,
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
 
     // Real
 

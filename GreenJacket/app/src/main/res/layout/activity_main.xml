@@ -36,4 +36,14 @@
         app:backgroundTint="@color/colorFabBackground"
         android:tag="category fab"/>
 
+    <android.support.design.widget.FloatingActionButton android:id="@+id/qr"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_gravity="bottom" android:layout_margin="@dimen/fab_margin"
+        android:src="@mipmap/qr_scan"
+        android:scaleType="center"
+        android:onClick="scanQR"
+        android:adjustViewBounds="false"
+        app:backgroundTint="@color/colorFabBackground"
+        android:tag="category qr"/>
+
 </android.support.design.widget.CoordinatorLayout>
