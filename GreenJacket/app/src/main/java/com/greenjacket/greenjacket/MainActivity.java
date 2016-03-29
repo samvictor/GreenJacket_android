@@ -47,11 +47,16 @@ public class MainActivity extends AppCompatActivity {
     //For the Scan QR code
     static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
 
+    public boolean demo = false;
+    public boolean use_qr = true;
+
     public JSONObject menu_data = null;
-    public boolean demo = true;
     public Context main_context;
     public CategoryExtras extras;
     public static MainActivity instance;
+    public String url_args = "?branch=1";
+    public String branch_id;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         instance = this;
 
         if (!demo && menu_data == null) {
-            new DownloadMenu().execute();
+            new DownloadMenu().execute("");
             System.out.println("downloading menu");
         }
         setContentView(R.layout.activity_main);
@@ -196,8 +201,13 @@ public class MainActivity extends AppCompatActivity {
                 String contents = intent.getStringExtra("SCAN_RESULT");
                 String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
                 Toast.makeText(this,
-                        "Content:" + contents + " Format:" + format,
+                        //"Content:" + contents + " Format:" + format,
+                        "Getting menu for from company: " + contents,
                         Toast.LENGTH_LONG).show();
+
+                url_args = "?branch="+contents;
+                branch_id = contents;
+                new DownloadMenu().execute();
             }
         }
     }
@@ -211,11 +221,15 @@ public class MainActivity extends AppCompatActivity {
         //private final String url_str = "http://localhost:8000/GJ_app/data/customer/menu/?branch=1";
         //private final String url_str = "http://10.0.2.2:8000/GJ_app/data/customer/menu/?branch=1"; // use this for localhost in emulator
         private final String url_str = "http://www.saminniss.com/gh_pages_test/gj_data.json"; // online
+        private final String url_base = "http://greenjacket.herokuapp.com/GJ_app/data/"; // from greenjacket
 
         protected String doInBackground(String... urls)
         {
             // params comes from the execute() call: params[0] is the url.
-            return extras.DownloadMenuDo(url_str);
+            if (use_qr)
+                return extras.DownloadMenuDo(url_base+url_args);
+            else
+                return extras.DownloadMenuDo(url_str);
         }
 
         // onPostExecute displays the results of the AsyncTask.
