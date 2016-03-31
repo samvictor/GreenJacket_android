@@ -21,7 +21,7 @@ public class Container extends AppCompatActivity {
 
     // not in main activity
     public Context container_context;
-    public ContainerExtras extras;
+    private ContainerExtras extras;
     public JSONObject container_data;
     public static Context instance;
 
@@ -65,7 +65,6 @@ public class Container extends AppCompatActivity {
             }
 
             new CreateContainerButtons().execute();
-
         }
 
 

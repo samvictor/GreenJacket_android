@@ -64,10 +64,21 @@ public class CategoryExtras {
         return out_str;
     }
 
+    public static void CreateButtons (ArrayList<String> ids, ArrayList<String> names,
+                                      View.OnClickListener listener, String image_prefix,
+                                      final GridLayout gridLayout, Context context, Activity activity)
+    {
+        ArrayList<String> special_button_names = names;
+
+        CreateButtons (ids, names, listener, image_prefix, gridLayout, context, activity, special_button_names);
+
+    }
+
     // creates buttons. uses image_prefex+name to get image
     public static void CreateButtons (ArrayList<String> ids, ArrayList<String> names,
                                        View.OnClickListener listener, String image_prefix,
-                                      final GridLayout gridLayout, Context context, Activity activity)
+                                      final GridLayout gridLayout, Context context, Activity activity,
+                                      ArrayList<String> special_button_names)
     {
         String LogTag = "createButton";
 
@@ -82,6 +93,7 @@ public class CategoryExtras {
                 c = 0;
                 r++;
             }
+
             final ImageButton new_button = new ImageButton(context);
 
             try{
@@ -105,7 +117,10 @@ public class CategoryExtras {
             b_param.setGravity(Gravity.CENTER);
 
             try {
-                b_param.columnSpec = GridLayout.spec(c, 1f);
+                if (total < 3)
+                    b_param.columnSpec = GridLayout.spec(c);
+                else
+                    b_param.columnSpec = GridLayout.spec(c, 1f);
             }
             catch (NoSuchMethodError e)
             {
@@ -125,11 +140,11 @@ public class CategoryExtras {
 
             final TextView new_text = new TextView(context);
 
-            String text_string = names.get(i);
+            String text_string = special_button_names.get(i);
             if (text_string.length() > 25)
             {
                 text_string = text_string.substring(0, 25);
-                Log.w(LogTag, "Text "+names.get(i)+" too long for button, truncating");
+                Log.w(LogTag, "Text "+special_button_names.get(i)+" too long for button, truncating");
             }
 
             new_text.setText(text_string+"\n");
@@ -142,8 +157,12 @@ public class CategoryExtras {
             t_param.rightMargin = 5;
             t_param.topMargin = 5;
 
-            try {
-                t_param.columnSpec = GridLayout.spec(c, 1f);
+            try
+            {
+                if (total < 3)
+                    t_param.columnSpec = GridLayout.spec(c);
+                else
+                    t_param.columnSpec = GridLayout.spec(c, 1f);
             }
             catch (NoSuchMethodError e)
             {

@@ -18,9 +18,9 @@ public class ContainerExtras {
     Container container_activity;
     Context container_context;
 
-    public ContainerExtras (Context new_context, Container new_main_activity) {
+    public ContainerExtras (Context new_context, Container new_container_activity) {
         //setContentView(R.layout.activity_main);
-        container_activity = new_main_activity;
+        container_activity = new_container_activity;
         container_context = new_context;
     }
 
