@@ -47,9 +47,28 @@ public class SizeExtras {
     public String FormatMoney(String in_str)
     {
         String ret_str = new String(in_str);
+        System.out.println("money is " + in_str);
 
-        ret_str = ret_str.substring(0, in_str.length() - 4) +"."
-                    + ret_str.substring(in_str.length() - 4, in_str.length() - 2);
+        ret_str = ret_str.substring(0, in_str.length() - 2);
+
+        switch (ret_str.length())
+        {
+            case 0:
+                ret_str = "0.00";
+                break;
+
+            case 1:
+                ret_str = "0.0" + ret_str;
+                break;
+
+            case 2:
+                ret_str = "0." + ret_str;
+                break;
+
+            default:
+                ret_str = ret_str.substring(0, ret_str.length() - 2) + "."
+                        + ret_str.substring(ret_str.length() - 2, ret_str.length());
+        }
 
         return ret_str;
     }
