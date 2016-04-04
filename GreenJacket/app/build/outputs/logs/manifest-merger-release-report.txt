@@ -1,0 +1,150 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:2:1-81:12
+	xmlns:android
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:2:11-69
+	package
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:3:5-42
+		INJECTED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:5:5-67
+	android:name
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:5:22-64
+application
+ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:7:5-79:19
+MERGED from [com.android.support:appcompat-v7:23.1.0] C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.0\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:design:23.1.0] C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\build\intermediates\exploded-aar\com.android.support\design\23.1.0\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:23.1.0] C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.0\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
+	android:supportsRtl
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:11:9-35
+	android:label
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:10:9-41
+	android:allowBackup
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:8:9-35
+	android:icon
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:9:9-43
+	android:theme
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:12:9-40
+activity#com.greenjacket.greenjacket.MainActivity
+ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:13:9-25:20
+	android:screenOrientation
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:18:13-49
+	android:label
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:16:13-45
+	android:configChanges
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:15:13-48
+	android:theme
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:19:13-56
+	android:name
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:14:13-41
+	android:launchMode
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:17:13-43
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:20:13-24:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:21:17-69
+	android:name
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:21:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:23:17-77
+	android:name
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:23:27-74
+activity#com.greenjacket.greenjacket.Container
+ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:26:9-36:20
+	android:screenOrientation
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:31:13-49
+	android:label
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:29:13-61
+	android:configChanges
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:28:13-48
+	android:theme
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:32:13-56
+	android:parentActivityName
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:30:13-55
+	android:name
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:27:13-38
+meta-data#android.support.PARENT_ACTIVITY
+ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:33:13-35:76
+	android:name
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:34:17-63
+	android:value
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:35:17-73
+activity#com.greenjacket.greenjacket.Checkout
+ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:37:9-47:20
+	android:screenOrientation
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:42:13-49
+	android:label
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:40:13-60
+	android:configChanges
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:39:13-48
+	android:theme
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:43:13-56
+	android:parentActivityName
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:41:13-55
+	android:name
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:38:13-37
+activity#com.greenjacket.greenjacket.Options
+ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:48:9-58:20
+	android:screenOrientation
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:53:13-49
+	android:label
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:51:13-59
+	android:configChanges
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:50:13-48
+	android:theme
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:54:13-56
+	android:parentActivityName
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:52:13-55
+	android:name
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:49:13-36
+activity#com.greenjacket.greenjacket.MainIngredient
+ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:59:9-68:20
+	android:screenOrientation
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:63:13-49
+	android:label
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:61:13-67
+	android:theme
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:64:13-56
+	android:parentActivityName
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:62:13-55
+	android:name
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:60:13-43
+activity#com.greenjacket.greenjacket.Size
+ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:69:9-78:20
+	android:screenOrientation
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:73:13-49
+	android:label
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:71:13-56
+	android:theme
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:74:13-56
+	android:parentActivityName
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:72:13-55
+	android:name
+		ADDED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml:70:13-33
+uses-sdk
+INJECTED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:appcompat-v7:23.1.0] C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.0\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:design:23.1.0] C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\build\intermediates\exploded-aar\com.android.support\design\23.1.0\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:appcompat-v7:23.1.0] C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.0\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:23.1.0] C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.0\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
+	android:targetSdkVersion
+		INJECTED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\samuel\Documents\Heroku\GreenJacket_android\GreenJacket\app\src\main\AndroidManifest.xml
