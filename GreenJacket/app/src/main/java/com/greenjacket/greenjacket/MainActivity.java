@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     public static MainActivity instance;
     public String url_args = "?branch=1";
     public String branch_id;
-    public ArrayList<JSONObject> orders;
+    public JSONArray orders;
 
 
     @Override
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             new DownloadMenu().execute("");
             System.out.println("downloading menu");
         }
-        orders = new ArrayList<JSONObject>();
+        orders = new JSONArray();
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -91,20 +91,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume()
-    {
-        Log.w("Main Activity","on resume");
-        Intent received_intent = getIntent();
-        if (received_intent.getBooleanExtra("item_added", false)) {
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putString("menu_data", menu_data.toString());
+        savedInstanceState.putString("orders", orders.toString());
 
-            View this_view = this.findViewById(R.id.fab);
-            Snackbar.make(this_view, "Item added to cart", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-
-            received_intent.removeExtra("item_added");
-        }
-        super.onResume();
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
     }
+
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        // Always call the superclass so it can restore the view hierarchy
+        super.onRestoreInstanceState(savedInstanceState);
+
+        try {
+            menu_data = new JSONObject(savedInstanceState.getString("menu_data"));
+            orders = new JSONArray(savedInstanceState.getString("orders"));
+        }
+        catch (JSONException e)
+        {
+            Log.e("MainActivity", "Error restoring data: " + e);
+        }
+    }
+
+
 
     public void onNewIntent(Intent new_intent)
     {
@@ -143,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 Log.e("Receiving Intent", "JSON error: " + e);
             }
-            orders.add(temp_order);
+            orders.put(temp_order);
             System.out.println("orders are now " + orders);
         }
 

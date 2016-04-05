@@ -82,6 +82,11 @@ public class OptionsExtras {
             options_names.add(new_name);
             options_types.add(type);
             options_prices.add(price);
+            if (type.compareTo("fixed") == 0)
+            {
+                options_activity.chosen_option_ids.add(key);
+                options_activity.chosen_option_names.add(new_name);
+            }
         }
 
         View.OnClickListener options_listener = new View.OnClickListener(){
