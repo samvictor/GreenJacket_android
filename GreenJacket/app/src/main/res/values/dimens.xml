@@ -5,5 +5,9 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="button_width">90dp</dimen>
     <dimen name="button_height">75dp</dimen>
+    <dimen name="options_real_image_width">90dp</dimen>
+    <dimen name="options_real_image_height">90dp</dimen>
+    <dimen name="options_display_text_height">52dp</dimen>
+    <dimen name="options_display_text_width">100dp</dimen>
 
 </resources>

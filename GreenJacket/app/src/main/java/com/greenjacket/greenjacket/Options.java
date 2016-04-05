@@ -124,10 +124,11 @@ public class Options extends AppCompatActivity {
         {
             try {
                 extras.CreateOptionsButtonsDo(options_data.getJSONObject("options"));
+                extras.CreateOptionsDisplayDo(options_data.getJSONObject("real_item"));
             }
             catch (JSONException e)
             {
-                Log.e(LogTag, "Error getting mains: " + e.toString());
+                Log.e(LogTag, "Error getting options/real_item data: " + e.toString());
             }
             return true;
         }

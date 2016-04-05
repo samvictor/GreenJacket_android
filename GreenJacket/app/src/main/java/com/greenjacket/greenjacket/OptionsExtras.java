@@ -103,6 +103,81 @@ public class OptionsExtras {
                 options_activity, options_types, options_prices);
     }
 
+    public void CreateOptionsDisplayDo(JSONObject real_item) throws JSONException
+    {
+        String real_name = real_item.getString("name");
+        final GridLayout display_grid = (GridLayout) options_activity.findViewById(R.id.options_content_display);
+        display_grid.removeAllViews();
+        display_grid.setColumnCount(2);
+        display_grid.setRowCount(1);
+
+        final ImageView real_image = new ImageView(options_context);
+        try{
+            real_image.setImageResource(R.mipmap.class.getField("real_" + CleanForImage(real_name)).getInt("id"));
+        }
+        catch (Exception e)
+        {
+            Log.w("Options Display", "Failed to get image with name: " + "real_" + CleanForImage(real_name));
+            real_image.setImageResource(R.mipmap.real_big_mac);
+        }
+        real_image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        real_image.setPadding(0, 0, 0, 0);
+
+        GridLayout.LayoutParams b_param = new GridLayout.LayoutParams();
+        b_param.height = (int) options_context.getResources().getDimension(R.dimen.options_real_image_height);
+        b_param.width = (int) options_context.getResources().getDimension(R.dimen.options_real_image_width);
+        b_param.setGravity(Gravity.LEFT);
+
+        b_param.columnSpec = GridLayout.spec(0);
+
+        b_param.rowSpec = GridLayout.spec(0);
+
+
+        final TextView display_text = new TextView(options_context);
+        if (real_name.length() > 20)
+        {
+            Log.w("Options Display", "Text "+real_name+" too long for display: truncating");
+            real_name = real_name.substring(0, 20);
+        }
+
+        display_text.setText(real_name);
+        display_text.setTextSize(20f);
+        display_text.setPadding(80, 0, 0, 0);
+        display_text.setTextColor(Color.parseColor("#ffffff"));
+        display_text.setGravity(Gravity.CENTER_VERTICAL);
+        //display_text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+        GridLayout.LayoutParams t_param = new GridLayout.LayoutParams();
+        t_param.height = (int) options_context.getResources().getDimension(R.dimen.options_display_text_height);
+        //t_param.width = (int) options_context.getResources().getDimension(R.dimen.options_display_text_width);
+        //t_param.width = (int) options_context.getResources().getDimension(R.dimen.button_width);
+
+        t_param.columnSpec = GridLayout.spec(1);
+
+        t_param.rowSpec = GridLayout.spec(0);
+        display_text.setLayoutParams(t_param);
+
+
+
+
+
+        real_image.setLayoutParams(b_param); options_activity.runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+            display_grid.addView(real_image);
+            display_grid.addView(display_text);
+
+
+        }
+    });
+
+
+
+
+
+
+    }
+
     // creates buttons. uses image_prefex+name to get image
     public static void CreateOptionsButtons (ArrayList<String> ids, ArrayList<String> names,
                                       View.OnClickListener listener, String image_prefix,

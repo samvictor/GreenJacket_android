@@ -49,7 +49,7 @@ public class SizeExtras {
         String ret_str = new String(in_str);
         System.out.println("money is " + in_str);
 
-        try {
+        /*try {
             ret_str = ret_str.substring(0, in_str.length() - 2);
         }
         catch (IndexOutOfBoundsException e)
@@ -74,7 +74,7 @@ public class SizeExtras {
             default:
                 ret_str = ret_str.substring(0, ret_str.length() - 2) + "."
                         + ret_str.substring(ret_str.length() - 2, ret_str.length());
-        }
+        }*/
 
         return ret_str;
     }

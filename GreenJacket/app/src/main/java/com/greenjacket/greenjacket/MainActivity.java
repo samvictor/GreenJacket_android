@@ -285,9 +285,9 @@ public class MainActivity extends AppCompatActivity {
     private class DownloadMenu extends AsyncTask<String, Void, String> {
         private final String LogTag = DownloadMenu.class.getSimpleName();
         //private final String url_str = "http://localhost:8000/GJ_app/data/customer/menu/?branch=1";
-        private final String url_base = "http://10.0.2.2:8000/GJ_app/data/customer/menu/"; // use this for localhost in emulator
+        //private final String url_base = "http://10.0.2.2:8000/GJ_app/data/customer/menu/"; // use this for localhost in emulator
         private final String url_str = "http://www.saminniss.com/gh_pages_test/gj_data.json"; // online
-        //private final String url_base = "http://greenjacket.herokuapp.com/GJ_app/data/"; // from greenjacket
+        private final String url_base = "http://greenjacket.herokuapp.com/GJ_app/data/"; // from greenjacket
 
         protected String doInBackground(String... urls)
         {
