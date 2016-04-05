@@ -49,7 +49,13 @@ public class SizeExtras {
         String ret_str = new String(in_str);
         System.out.println("money is " + in_str);
 
-        ret_str = ret_str.substring(0, in_str.length() - 2);
+        try {
+            ret_str = ret_str.substring(0, in_str.length() - 2);
+        }
+        catch (IndexOutOfBoundsException e)
+        {
+            ;
+        }
 
         switch (ret_str.length())
         {

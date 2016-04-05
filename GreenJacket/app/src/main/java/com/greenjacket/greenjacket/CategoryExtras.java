@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -74,11 +75,22 @@ public class CategoryExtras {
 
     }
 
+    public static void CreateButtons (ArrayList<String> ids, ArrayList<String> names,
+                                      View.OnClickListener listener, String image_prefix,
+                                      final GridLayout gridLayout, Context context, Activity activity,
+                                      ArrayList<String> special_button_names)
+    {
+        ArrayList<String> types = names;
+
+        CreateButtons (ids, names, listener, image_prefix, gridLayout, context, activity, special_button_names, types);
+
+    }
+
     // creates buttons. uses image_prefex+name to get image
     public static void CreateButtons (ArrayList<String> ids, ArrayList<String> names,
                                        View.OnClickListener listener, String image_prefix,
                                       final GridLayout gridLayout, Context context, Activity activity,
-                                      ArrayList<String> special_button_names)
+                                      ArrayList<String> special_button_names, ArrayList<String> types)
     {
         String LogTag = "createButton";
 
@@ -104,16 +116,20 @@ public class CategoryExtras {
                 Log.w(LogTag, "Failed to get image with name: " + image_prefix + CleanForImage(names.get(i)));
                 new_button.setImageResource(R.mipmap.sandwich);
             }
+            new_button.setBackgroundColor(ContextCompat.getColor(context, R.color.colorButton));
             new_button.setTag(R.string.button_id_tag, ids.get(i));
             new_button.setTag(R.string.button_name_tag, names.get(i));
+            new_button.setTag(R.string.button_type_tag, types.get(i));
             new_button.setScaleType(ImageView.ScaleType.FIT_CENTER);
             new_button.setOnClickListener(listener);
+            new_button.setPadding(0, 0, 0, 0);
 
             GridLayout.LayoutParams b_param = new GridLayout.LayoutParams();
             b_param.height = (int) context.getResources().getDimension(R.dimen.button_height);
             b_param.width = (int) context.getResources().getDimension(R.dimen.button_width);
-            b_param.rightMargin = 5;
-            b_param.topMargin = 5;
+            b_param.rightMargin = 20;
+            b_param.leftMargin = 20;
+            b_param.topMargin = 60;
             b_param.setGravity(Gravity.CENTER);
 
             try {

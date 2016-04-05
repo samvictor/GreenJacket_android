@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     public static MainActivity instance;
     public String url_args = "?branch=1";
     public String branch_id;
+    public ArrayList<JSONObject> orders;
 
 
     @Override
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
             new DownloadMenu().execute("");
             System.out.println("downloading menu");
         }
+        orders = new ArrayList<JSONObject>();
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -90,11 +93,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume()
     {
-        Log.d("Main Activity","on resume");
+        Log.w("Main Activity","on resume");
         Intent received_intent = getIntent();
-
-        //received_intent.putExtra("item_addeded", true);
-        //System.out.println("Intent I got is " + received_intent.getExtras());
         if (received_intent.getBooleanExtra("item_added", false)) {
 
             View this_view = this.findViewById(R.id.fab);
@@ -106,21 +106,48 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    public void onNewIntent()
+    public void onNewIntent(Intent new_intent)
     {
         Log.d("Main Activity", "on new intent");
-        Intent received_intent = getIntent();
+        Intent received_intent = new_intent;
+
+        //Iterator<String > iterator = new_intent.getExtras().keySet().iterator();
+
+        //for (;iterator.hasNext();) {
+        //    System.out.println(iterator.next());
+        //}
 
         //received_intent.putExtra("on new intent", true);
-        //System.out.println("Intent I got is " + received_intent.getExtras());
         if (received_intent.getBooleanExtra("item_added", false)) {
 
             View this_view = this.findViewById(R.id.fab);
             Snackbar.make(this_view, "Item added to cart", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
 
-            received_intent.removeExtra("item_added");
+            //received_intent.removeExtra("item_added");
+
+            JSONObject temp_order = new JSONObject();
+            try {
+                temp_order.put("category_id", received_intent.getStringExtra("category_id"));
+                temp_order.put("category_name", received_intent.getStringExtra("category_name"));
+                temp_order.put("main_opt_id", received_intent.getStringExtra("main_opt_id"));
+                temp_order.put("main_opt_name", received_intent.getStringExtra("main_opt_name"));
+                temp_order.put("container_id", received_intent.getStringExtra("container_id"));
+                temp_order.put("container_name", received_intent.getStringExtra("container_name"));
+                temp_order.put("size_id", received_intent.getStringExtra("size_id"));
+                temp_order.put("size_name", received_intent.getStringExtra("size_name"));
+                temp_order.put("chosen_option_ids", received_intent.getStringArrayListExtra("chosen_option_ids"));
+                temp_order.put("chosen_option_names", received_intent.getStringArrayListExtra("chosen_option_names"));
+            }
+            catch (JSONException e)
+            {
+                Log.e("Receiving Intent", "JSON error: " + e);
+            }
+            orders.add(temp_order);
+            System.out.println("orders are now " + orders);
         }
+
+        setIntent(new_intent);
     }
 
     @Override
@@ -249,9 +276,9 @@ public class MainActivity extends AppCompatActivity {
     private class DownloadMenu extends AsyncTask<String, Void, String> {
         private final String LogTag = DownloadMenu.class.getSimpleName();
         //private final String url_str = "http://localhost:8000/GJ_app/data/customer/menu/?branch=1";
-        //private final String url_str = "http://10.0.2.2:8000/GJ_app/data/customer/menu/?branch=1"; // use this for localhost in emulator
+        private final String url_base = "http://10.0.2.2:8000/GJ_app/data/customer/menu/"; // use this for localhost in emulator
         private final String url_str = "http://www.saminniss.com/gh_pages_test/gj_data.json"; // online
-        private final String url_base = "http://greenjacket.herokuapp.com/GJ_app/data/"; // from greenjacket
+        //private final String url_base = "http://greenjacket.herokuapp.com/GJ_app/data/"; // from greenjacket
 
         protected String doInBackground(String... urls)
         {

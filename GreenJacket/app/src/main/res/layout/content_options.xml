@@ -17,7 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_row="0"
-        android:layout_column="0">
+        android:layout_column="0"
+        android:id="@+id/options_content_display">
 
         <ImageView
             android:layout_width="90dp"
@@ -47,7 +48,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_row="1"
-        android:layout_column="0">
+        android:layout_column="0"
+        android:id="@+id/options_content_options">
 
         <ImageButton
             android:layout_width="@dimen/button_width"
