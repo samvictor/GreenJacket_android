@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean demo = false;
     public boolean use_qr = true;
+    public boolean go_home = true;
 
     public JSONObject menu_data = null;
     public Context main_context;
@@ -68,7 +69,13 @@ public class MainActivity extends AppCompatActivity {
         extras = new CategoryExtras(main_context, this);
         instance = this;
 
-        if (!demo && menu_data == null) {
+        if (go_home)
+        {
+            Intent to_home = new Intent(main_context, Home.class);
+            startActivity(to_home);
+        }
+
+        if (!demo && menu_data == null && !go_home) {
             new DownloadMenu().execute("");
             System.out.println("downloading menu");
         }
@@ -92,9 +99,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putString("menu_data", menu_data.toString());
-        savedInstanceState.putString("orders", orders.toString());
 
+        try {
+            savedInstanceState.putString("menu_data", menu_data.toString());
+            savedInstanceState.putString("orders", orders.toString());
+        }
+        catch (Exception e)
+        {
+            Log.w("on save instance", "error saving data " + e);
+        }
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
     }
@@ -127,7 +140,11 @@ public class MainActivity extends AppCompatActivity {
         //}
 
         //received_intent.putExtra("on new intent", true);
-        if (received_intent.getBooleanExtra("item_added", false)) {
+        if (received_intent.getBooleanExtra("start_qr", false))
+        {
+            scanQR(this.findViewById(R.id.qr));
+        }
+        else if (received_intent.getBooleanExtra("item_added", false)) {
 
             View this_view = this.findViewById(R.id.fab);
             Snackbar.make(this_view, "Item added to cart", Snackbar.LENGTH_LONG)
@@ -155,6 +172,8 @@ public class MainActivity extends AppCompatActivity {
             orders.put(temp_order);
             System.out.println("orders are now " + orders);
         }
+
+
 
         setIntent(new_intent);
     }

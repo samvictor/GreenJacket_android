@@ -22,76 +22,15 @@
     android:columnCount="3"
     android:id="@+id/main_content">
 
-    <ImageButton
-        android:layout_width="@dimen/button_width"
-        android:layout_height="@dimen/button_height"
-        android:id="@+id/meat_button"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Loading..."
+        android:id="@+id/textView10"
         android:layout_row="0"
         android:layout_column="0"
-        android:src="@mipmap/meat"
-        android:scaleType="fitCenter"
-        android:onClick="MeatButton"
-        android:layout_columnWeight="1"
-        android:padding="0dp"
-        android:layout_gravity="center_vertical" />
-
-    <ImageButton
-        android:layout_width="@dimen/button_width"
-        android:layout_height="@dimen/button_height"
-        android:id="@+id/imageButton"
-        android:layout_row="0"
-        android:layout_column="1"
-        android:scaleType="fitCenter"
-        android:layout_columnWeight="1"
-        android:src="@mipmap/fries"
-        android:layout_gravity="center_horizontal" />
-
-    <ImageButton
-        android:layout_width="@dimen/button_width"
-        android:layout_height="@dimen/button_height"
-        android:id="@+id/imageButton7"
-        android:layout_row="0"
-        android:layout_column="2"
-        android:layout_columnWeight="1"
-        android:src="@mipmap/soda_cup"
-        android:scaleType="fitCenter"
-        android:layout_gravity="center_horizontal" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Meat"
-        android:id="@+id/textView4"
-        android:layout_row="1"
-        android:layout_column="0"
-        android:layout_columnWeight="1"
-        android:textColor="#ffffff"
-        android:textAlignment="center"
-        android:layout_gravity="center_horizontal" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sides"
-        android:id="@+id/textView5"
-        android:layout_row="1"
-        android:layout_column="1"
-        android:textAlignment="center"
-        android:textColor="#ffffff"
-        android:layout_columnWeight="1"
-        android:layout_gravity="center_horizontal" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Drinks"
-        android:id="@+id/textView6"
-        android:layout_row="1"
-        android:layout_column="2"
-        android:layout_columnWeight="1"
-        android:textColor="#ffffff"
-        android:textAlignment="center"
-        android:layout_gravity="center_horizontal" />
-
+        android:layout_columnSpan="3"
+        android:textColor="#ffffff" />
 </GridLayout>
 
