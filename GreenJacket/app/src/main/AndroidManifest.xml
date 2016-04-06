@@ -80,6 +80,7 @@
             android:name=".Home"
             android:label="@string/title_activity_home"
             android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

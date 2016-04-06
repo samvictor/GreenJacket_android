@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
     }
 
+    @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         // Always call the superclass so it can restore the view hierarchy
         super.onRestoreInstanceState(savedInstanceState);
@@ -144,7 +145,14 @@ public class MainActivity extends AppCompatActivity {
         {
             scanQR(this.findViewById(R.id.qr));
         }
-        else if (received_intent.getBooleanExtra("item_added", false)) {
+        else if (menu_data == null)
+        {
+            if (go_home)
+            {
+                Intent to_home = new Intent(main_context, Home.class);
+                startActivity(to_home);
+            }
+        } else if (received_intent.getBooleanExtra("item_added", false)) {
 
             View this_view = this.findViewById(R.id.fab);
             Snackbar.make(this_view, "Item added to cart", Snackbar.LENGTH_LONG)
@@ -164,9 +172,7 @@ public class MainActivity extends AppCompatActivity {
                 temp_order.put("size_name", received_intent.getStringExtra("size_name"));
                 temp_order.put("chosen_option_ids", received_intent.getStringArrayListExtra("chosen_option_ids"));
                 temp_order.put("chosen_option_names", received_intent.getStringArrayListExtra("chosen_option_names"));
-            }
-            catch (JSONException e)
-            {
+            } catch (JSONException e) {
                 Log.e("Receiving Intent", "JSON error: " + e);
             }
             orders.put(temp_order);
