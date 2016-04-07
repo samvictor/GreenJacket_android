@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -177,5 +178,36 @@ public class Options extends AppCompatActivity {
         View this_view = this.findViewById(R.id.fab);
         Snackbar.make(this_view, "This item is required", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+
+        try {
+            savedInstanceState.putString("menu_data", main_activity.menu_data.toString());
+            savedInstanceState.putString("orders", main_activity.orders.toString());
+        }
+        catch (Exception e)
+        {
+            Log.w("on save instance", "error saving data " + e);
+        }
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        // Always call the superclass so it can restore the view hierarchy
+        super.onRestoreInstanceState(savedInstanceState);
+
+        try {
+            main_activity.menu_data = new JSONObject(savedInstanceState.getString("menu_data"));
+            main_activity.orders = new JSONArray(savedInstanceState.getString("orders"));
+        }
+        catch (Exception e)
+        {
+            Log.e("Options", "Error restoring data: " + e);
+        }
     }
 }

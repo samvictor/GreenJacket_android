@@ -265,6 +265,7 @@ public class CheckoutExtras {
             catch (NoSuchMethodError e)
             {
                 Log.w(LogTag, "Not using weight");
+                item_price.setPadding(20, 0, 20, 0);
                 p_param.columnSpec = GridLayout.spec(2);
             }
 

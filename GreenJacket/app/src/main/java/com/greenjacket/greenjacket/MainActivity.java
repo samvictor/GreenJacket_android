@@ -67,15 +67,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         main_context = this;
-        if (go_home)
+        if (go_home && menu_data == null && !loading_data)
         {
             Intent to_home = new Intent(main_context, Home.class);
             startActivity(to_home);
         }
 
-        setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         android.support.v7.app.ActionBar toolbar_support = getSupportActionBar();
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             menu_data = new JSONObject(savedInstanceState.getString("menu_data"));
             orders = new JSONArray(savedInstanceState.getString("orders"));
         }
-        catch (JSONException e)
+        catch (Exception e)
         {
             Log.e("MainActivity", "Error restoring data: " + e);
         }
@@ -145,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
         {
             scanQR(this.findViewById(R.id.qr));
             received_intent.removeExtra("start_qr");
+            loading_data = true; // home needs to be it's own activity with qr scanner
         }
         else if (menu_data == null && go_home && !loading_data)
         {
