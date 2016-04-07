@@ -39,6 +39,7 @@ public class SizeExtras {
 
         to_options.putExtra("size_id", view.getTag(R.string.button_id_tag).toString());
         to_options.putExtra("size_name", view.getTag(R.string.button_name_tag).toString());
+        to_options.putExtra("size_price", view.getTag(R.string.button_price_tag).toString());
 
         size_activity.startActivity(to_options);
     }
@@ -83,6 +84,7 @@ public class SizeExtras {
     {
         ArrayList<String> size_names = new ArrayList<String>();
         ArrayList <String> size_ids = new ArrayList<String>();
+        ArrayList <String> size_prices = new ArrayList<String>();
 
         ArrayList <String> size_button_names = new ArrayList<String>();
         String temp_name = "";
@@ -103,6 +105,7 @@ public class SizeExtras {
             }
             size_button_names.add(temp_name);
             size_names.add(new_name);
+            size_prices.add(price);
         }
 
         View.OnClickListener size_listener = new View.OnClickListener(){
@@ -120,6 +123,6 @@ public class SizeExtras {
 
         CategoryExtras.CreateButtons(size_ids, size_names, size_listener,
                 "size_", grid_layout, size_context,
-                size_activity, size_button_names);
+                size_activity, size_button_names, size_prices, size_activity);
     }
 }

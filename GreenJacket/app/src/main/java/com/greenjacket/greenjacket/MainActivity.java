@@ -53,39 +53,46 @@ public class MainActivity extends AppCompatActivity {
     public boolean go_home = true;
 
     public JSONObject menu_data = null;
+    public boolean loading_data = false;
     public Context main_context;
     public CategoryExtras extras;
     public static MainActivity instance;
     public String url_args = "?branch=1";
     public String branch_id;
+
     public JSONArray orders;
+    public ArrayList<Integer> order_ids; // don't remove
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        main_context = this;
         super.onCreate(savedInstanceState);
-        // Start downloading menu data
-        extras = new CategoryExtras(main_context, this);
-        instance = this;
 
+        main_context = this;
         if (go_home)
         {
             Intent to_home = new Intent(main_context, Home.class);
             startActivity(to_home);
         }
 
-        if (!demo && menu_data == null && !go_home) {
-            new DownloadMenu().execute("");
-            System.out.println("downloading menu");
-        }
-        orders = new JSONArray();
         setContentView(R.layout.activity_main);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         android.support.v7.app.ActionBar toolbar_support = getSupportActionBar();
         toolbar_support.setTitle("Green Jacket");
+
+        extras = new CategoryExtras(main_context, this);
+        instance = this;
+
+        orders = new JSONArray();
+        order_ids = new ArrayList<Integer>();
+
+        if (!demo && menu_data == null && !go_home && !loading_data) {
+            loading_data = true;
+            new DownloadMenu().execute("");
+            System.out.println("downloading menu");
+        }
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -128,6 +135,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onResume()
+    {
+        System.out.println("on resume");
+        Intent received_intent = getIntent();
+
+        if (received_intent.getBooleanExtra("start_qr", false))
+        {
+            scanQR(this.findViewById(R.id.qr));
+            received_intent.removeExtra("start_qr");
+        }
+        else if (menu_data == null && go_home && !loading_data)
+        {
+            Intent to_home = new Intent(main_context, Home.class);
+            startActivity(to_home);
+        }
+
+        super.onResume();
+    }
+
+
 
     public void onNewIntent(Intent new_intent)
     {
@@ -135,23 +163,18 @@ public class MainActivity extends AppCompatActivity {
         Intent received_intent = new_intent;
 
         //Iterator<String > iterator = new_intent.getExtras().keySet().iterator();
-
         //for (;iterator.hasNext();) {
-        //    System.out.println(iterator.next());
-        //}
+        //    System.out.println(iterator.next()); //}
 
-        //received_intent.putExtra("on new intent", true);
         if (received_intent.getBooleanExtra("start_qr", false))
         {
-            scanQR(this.findViewById(R.id.qr));
+            //scanQR(this.findViewById(R.id.qr));
         }
-        else if (menu_data == null)
+        else if (menu_data == null && go_home && !loading_data)
         {
-            if (go_home)
-            {
-                Intent to_home = new Intent(main_context, Home.class);
-                startActivity(to_home);
-            }
+            //Intent to_home = new Intent(main_context, Home.class);
+            //startActivity(to_home);
+
         } else if (received_intent.getBooleanExtra("item_added", false)) {
 
             View this_view = this.findViewById(R.id.fab);
@@ -162,24 +185,36 @@ public class MainActivity extends AppCompatActivity {
 
             JSONObject temp_order = new JSONObject();
             try {
-                temp_order.put("category_id", received_intent.getStringExtra("category_id"));
-                temp_order.put("category_name", received_intent.getStringExtra("category_name"));
-                temp_order.put("main_opt_id", received_intent.getStringExtra("main_opt_id"));
-                temp_order.put("main_opt_name", received_intent.getStringExtra("main_opt_name"));
-                temp_order.put("container_id", received_intent.getStringExtra("container_id"));
-                temp_order.put("container_name", received_intent.getStringExtra("container_name"));
-                temp_order.put("size_id", received_intent.getStringExtra("size_id"));
-                temp_order.put("size_name", received_intent.getStringExtra("size_name"));
-                temp_order.put("chosen_option_ids", received_intent.getStringArrayListExtra("chosen_option_ids"));
-                temp_order.put("chosen_option_names", received_intent.getStringArrayListExtra("chosen_option_names"));
+                //temp_order.put("category_id", received_intent.getStringExtra("category_id"));
+                //temp_order.put("category_name", received_intent.getStringExtra("category_name"));
+                //temp_order.put("main_opt_id", received_intent.getStringExtra("main_opt_id"));
+                //temp_order.put("main_opt_name", received_intent.getStringExtra("main_opt_name"));
+                //temp_order.put("container_id", received_intent.getStringExtra("container_id"));
+                //temp_order.put("container_name", received_intent.getStringExtra("container_name"));
+                //temp_order.put("size_id", received_intent.getStringExtra("size_id"));
+                //temp_order.put("size_name", received_intent.getStringExtra("size_name"));
+                temp_order.put("size_price", received_intent.getStringExtra("size_price"));
+                //temp_order.put("chosen_option_ids", new JSONArray(received_intent.getStringArrayListExtra("chosen_option_ids")));
+                temp_order.put("chosen_option_names", new JSONArray(received_intent.getStringArrayListExtra("chosen_option_names")));
+                temp_order.put("chosen_option_prices", new JSONArray(received_intent.getStringArrayListExtra("chosen_option_prices")));
+
+                temp_order.put("real_name", received_intent.getStringExtra("real_name"));
+
+                int max_id = 0;
+
+                for (int i = 0; i < order_ids.size(); i++)
+                {
+                    max_id = Math.max(max_id, order_ids.get(i));
+                }
+                temp_order.put("row_id", max_id + 1);
+                order_ids.add(max_id + 1);
+
             } catch (JSONException e) {
                 Log.e("Receiving Intent", "JSON error: " + e);
             }
             orders.put(temp_order);
             System.out.println("orders are now " + orders);
         }
-
-
 
         setIntent(new_intent);
     }
@@ -237,8 +272,8 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
             startActivityForResult(intent, 0);
         } catch (ActivityNotFoundException e) {
-            showDialog(MainActivity.this, "No Scanner Found",
-                    "Download a scanner code activity?", "Yes", "No").show();
+            showDialog(MainActivity.this, "No QR Scanner Found",
+                    "Download a QR scanner app?", "Yes", "No").show();
         }
     }
 
@@ -298,6 +333,7 @@ public class MainActivity extends AppCompatActivity {
 
                 url_args = "?branch="+contents;
                 branch_id = contents;
+                loading_data = true;
                 new DownloadMenu().execute();
             }
         }
@@ -317,6 +353,7 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... urls)
         {
             // params comes from the execute() call: params[0] is the url.
+            loading_data = true;
             if (use_qr)
                 return extras.DownloadMenuDo(url_base+url_args);
             else
@@ -329,6 +366,7 @@ public class MainActivity extends AppCompatActivity {
         {
             // What to do with menu?
             menu_data = extras.DownloadMenuPost(result);
+            loading_data = false;
             super.onPostExecute(result);
         }
     }

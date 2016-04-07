@@ -8,7 +8,7 @@ import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.util.*;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.GridLayout;
@@ -70,19 +70,24 @@ public class CategoryExtras {
                                       final GridLayout gridLayout, Context context, Activity activity)
     {
         ArrayList<String> special_button_names = names;
+        ArrayList<String> types = names;
+        ArrayList<String> prices = names;
 
-        CreateButtons (ids, names, listener, image_prefix, gridLayout, context, activity, special_button_names);
+        CreateButtons (ids, names, listener, image_prefix, gridLayout, context, activity,
+                            special_button_names, types, prices);
 
     }
 
     public static void CreateButtons (ArrayList<String> ids, ArrayList<String> names,
                                       View.OnClickListener listener, String image_prefix,
-                                      final GridLayout gridLayout, Context context, Activity activity,
-                                      ArrayList<String> special_button_names)
+                                      final GridLayout gridLayout, Context context,
+                                      Activity activity, ArrayList<String> special_button_names,
+                                      ArrayList<String> prices, Size size)
     {
         ArrayList<String> types = names;
 
-        CreateButtons (ids, names, listener, image_prefix, gridLayout, context, activity, special_button_names, types);
+        CreateButtons (ids, names, listener, image_prefix, gridLayout, context, activity,
+                            special_button_names, types, prices);
 
     }
 
@@ -90,7 +95,8 @@ public class CategoryExtras {
     public static void CreateButtons (ArrayList<String> ids, ArrayList<String> names,
                                        View.OnClickListener listener, String image_prefix,
                                       final GridLayout gridLayout, Context context, Activity activity,
-                                      ArrayList<String> special_button_names, ArrayList<String> types)
+                                      ArrayList<String> special_button_names, ArrayList<String> types,
+                                      ArrayList<String> prices)
     {
         String LogTag = "createButton";
 
@@ -120,6 +126,7 @@ public class CategoryExtras {
             new_button.setTag(R.string.button_id_tag, ids.get(i));
             new_button.setTag(R.string.button_name_tag, names.get(i));
             new_button.setTag(R.string.button_type_tag, types.get(i));
+            new_button.setTag(R.string.button_price_tag, prices.get(i));
             new_button.setScaleType(ImageView.ScaleType.FIT_CENTER);
             new_button.setOnClickListener(listener);
             new_button.setPadding(0, 0, 0, 0);

@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 public class Home extends AppCompatActivity {
@@ -30,6 +31,7 @@ public class Home extends AppCompatActivity {
                 //to_category.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 to_category.putExtra("start_qr", true);
                 startActivity(to_category);
+                Log.d("Home", "on my way to main");
             }
         });
     }

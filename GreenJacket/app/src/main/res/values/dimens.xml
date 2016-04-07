@@ -5,9 +5,19 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="button_width">90dp</dimen>
     <dimen name="button_height">75dp</dimen>
+
     <dimen name="options_real_image_width">90dp</dimen>
     <dimen name="options_real_image_height">90dp</dimen>
     <dimen name="options_display_text_height">52dp</dimen>
     <dimen name="options_display_text_width">100dp</dimen>
+
+    <dimen name="checkout_real_image_width">40dp</dimen>
+    <dimen name="checkout_real_image_height">50dp</dimen>
+    <dimen name="checkout_name_height">50dp</dimen>
+    <dimen name="checkout_name_width">40dp</dimen>
+    <dimen name="checkout_price_height">50dp</dimen>
+    <dimen name="checkout_price_width">30dp</dimen>
+    <dimen name="x_button_width">20dp</dimen>
+    <dimen name="x_button_height">26dp</dimen>
 
 </resources>

@@ -1,13 +1,28 @@
 package com.greenjacket.greenjacket;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 public class Checkout extends AppCompatActivity {
+    public Boolean demo;
+    public MainActivity main_activity;
+    public JSONObject menu_data;
+
+    public Context checkout_context;
+    private CheckoutExtras extras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +32,43 @@ public class Checkout extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Checkout");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        // get necessary things from main activity
+        main_activity = MainActivity.instance;
+        demo = main_activity.demo;
+        menu_data = main_activity.menu_data;
+
+        checkout_context = this;
+        extras = new CheckoutExtras(checkout_context, this);
+
+        if (!demo)
+        {
+            new CreateCheckoutButtons().execute();
+        }
+    }
+
+    private class CreateCheckoutButtons extends AsyncTask<String, String, Boolean>
+    {
+        private final String LogTag = CreateCheckoutButtons.class.getSimpleName();
+        protected Boolean doInBackground(String... url)
+        {
+            try {
+                extras.CreateCheckoutButtonsDo(main_activity.orders);
+            }
+            catch (JSONException e)
+            {
+                Log.e(LogTag, "Error creating checkout menu: " + e.toString());
+            }
+            return true;
+        }
+
+        // onPostExecute displays the results of the AsyncTask.
+        @Override
+        protected void onPostExecute(Boolean success)
+        {
+            super.onPostExecute(true);
+        }
     }
 
 }

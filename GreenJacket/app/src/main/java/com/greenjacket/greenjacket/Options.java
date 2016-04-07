@@ -35,8 +35,10 @@ public class Options extends AppCompatActivity {
     public String container_name;
     public String size_id;
     public String size_name;
+    public String size_price;
     public ArrayList<String> chosen_option_ids; // list of option ids
-    public ArrayList<String> chosen_option_names; // list of option ids
+    public ArrayList<String> chosen_option_names;
+    public ArrayList<String> chosen_option_prices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class Options extends AppCompatActivity {
         extras = new OptionsExtras(options_context, this);
         chosen_option_ids = new ArrayList<String>();
         chosen_option_names = new ArrayList<String>();
+        chosen_option_prices = new ArrayList<String>();
 
 
         if (!demo)
@@ -64,6 +67,7 @@ public class Options extends AppCompatActivity {
             container_name = intent.getStringExtra("container_name");
             size_id = intent.getStringExtra("size_id");
             size_name = intent.getStringExtra("size_name");
+            size_price = intent.getStringExtra("size_price");
 
             try {
                 options_data = menu_data.getJSONObject("categories").getJSONObject(category_id).getJSONObject("mains"
@@ -71,8 +75,7 @@ public class Options extends AppCompatActivity {
                 ).getJSONObject(size_id);
                 System.out.println(options_data);
             }
-            catch (JSONException e)
-            {
+            catch (JSONException e) {
                 Log.e("Options", "Error getting size data: " + e.toString());
             }
 
@@ -105,9 +108,20 @@ public class Options extends AppCompatActivity {
                     to_category.putExtra("container_name", container_name);
                     to_category.putExtra("size_id", size_id);
                     to_category.putExtra("size_name", size_name);
+                    to_category.putExtra("size_price", size_price);
 
                     to_category.putExtra("chosen_option_ids", chosen_option_ids);
                     to_category.putExtra("chosen_option_names", chosen_option_names);
+                    to_category.putExtra("chosen_option_prices", chosen_option_prices);
+
+                    try {
+                        JSONObject real_item = options_data.getJSONObject("real_item");
+                        to_category.putExtra("real_name", real_item.getString("name"));
+                    }
+                    catch (JSONException e)
+                    {
+                        Log.e("Options -> Category", "Error getting real item data: " + e);
+                    }
                 }
 
                 startActivity(to_category);
@@ -124,7 +138,8 @@ public class Options extends AppCompatActivity {
         {
             try {
                 extras.CreateOptionsButtonsDo(options_data.getJSONObject("options"));
-                extras.CreateOptionsDisplayDo(options_data.getJSONObject("real_item"));
+                extras.CreateOptionsDisplayDo(options_data.getJSONObject("real_item"),
+                                                options_data.getString("price"));
             }
             catch (JSONException e)
             {

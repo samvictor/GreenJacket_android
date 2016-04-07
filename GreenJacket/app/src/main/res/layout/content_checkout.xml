@@ -14,7 +14,8 @@
     android:layout_gravity="center_vertical"
     android:foregroundGravity="center_vertical"
     android:columnCount="4"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/checkout_content">
 
     <ImageView
         android:layout_width="69dp"
