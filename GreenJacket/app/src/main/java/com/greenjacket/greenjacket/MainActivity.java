@@ -51,6 +51,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean demo = false;
     public boolean use_qr = true;
     public boolean go_home = true;
+    public boolean meals = false;
+
+    //private final String menu_url = "http://10.0.2.2:8000/GJ_app/data/customer/menu/"; // use this for localhost in emulator
+    private final String menu_url = "http://greenjacket.herokuapp.com/GJ_app/data/"; // from greenjacket
+
 
     public JSONObject menu_data = null;
     public boolean loading_data = false;
@@ -63,10 +68,12 @@ public class MainActivity extends AppCompatActivity {
     public JSONArray orders;
     public ArrayList<Integer> order_ids; // don't remove
 
+    Bundle saved_instance_state;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        saved_instance_state = savedInstanceState;
         setContentView(R.layout.activity_main);
 
         main_context = this;
@@ -347,18 +354,41 @@ public class MainActivity extends AppCompatActivity {
     private class DownloadMenu extends AsyncTask<String, Void, String> {
         private final String LogTag = DownloadMenu.class.getSimpleName();
         //private final String url_str = "http://localhost:8000/GJ_app/data/customer/menu/?branch=1";
-        //private final String url_base = "http://10.0.2.2:8000/GJ_app/data/customer/menu/"; // use this for localhost in emulator
-        private final String url_str = "http://www.saminniss.com/gh_pages_test/gj_data.json"; // online
-        private final String url_base = "http://greenjacket.herokuapp.com/GJ_app/data/"; // from greenjacket
+        // private final String url_base = "http://10.0.2.2:8000/GJ_app/data/customer/menu/"; // use this for localhost in emulator
+        private final String url_sam = "http://www.saminniss.com/gh_pages_test/gj_data.json"; // online
+        //private final String url_base = "http://greenjacket.herokuapp.com/GJ_app/data/"; // from greenjacket
+        private final String url_base = menu_url;
 
         protected String doInBackground(String... urls)
         {
             // params comes from the execute() call: params[0] is the url.
             loading_data = true;
-            if (use_qr)
-                return extras.DownloadMenuDo(url_base+url_args);
-            else
-                return extras.DownloadMenuDo(url_str);
+
+            try {
+                if (use_qr)
+                    return extras.DownloadMenuDo(url_base + url_args);
+                else
+                    return extras.DownloadMenuDo(url_base + "?branch=1");
+            }
+            catch (IOException e)
+            {
+                try {
+                    return extras.DownloadMenuDo(url_sam);
+                }
+                catch (IOException err)
+                {
+                    Log.e(LogTag, "Couldn't reach Sam either");
+                    // demo = true;
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            instance.onCreate(saved_instance_state);
+                        }
+                    });
+                    return  "Error fetching menu";
+                }
+            }
         }
 
         // onPostExecute displays the results of the AsyncTask.

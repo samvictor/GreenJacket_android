@@ -21,6 +21,8 @@ import java.util.ArrayList;
 
 public class Options extends AppCompatActivity {
     public Boolean demo;
+    public boolean meals;
+
     public MainActivity main_activity;
     public JSONObject menu_data;
 
@@ -41,6 +43,7 @@ public class Options extends AppCompatActivity {
     public ArrayList<String> chosen_option_names;
     public ArrayList<String> chosen_option_prices;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +52,7 @@ public class Options extends AppCompatActivity {
         main_activity = MainActivity.instance;
         menu_data = main_activity.menu_data;
         demo = main_activity.demo;
+        meals = main_activity.meals;
 
         options_context = this;
         extras = new OptionsExtras(options_context, this);
@@ -138,9 +142,17 @@ public class Options extends AppCompatActivity {
         protected Boolean doInBackground(String... url)
         {
             try {
-                extras.CreateOptionsButtonsDo(options_data.getJSONObject("options"));
+                if (meals) {
+                    extras.CreateOptionsButtonsDo(options_data.getJSONObject("options"),
+                            options_data.getJSONObject("meals"));
+                }
+                else
+                {
+                    extras.CreateOptionsButtonsDo(options_data.getJSONObject("options"),
+                            new JSONObject("{}"));
+                }
                 extras.CreateOptionsDisplayDo(options_data.getJSONObject("real_item"),
-                                                options_data.getString("price"));
+                        options_data.getString("price"));
             }
             catch (JSONException e)
             {

@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -207,7 +208,7 @@ public class CategoryExtras {
 
     private final String LogTag = "Category Extras";
 
-    public String DownloadMenuDo(String url_str)
+    public String DownloadMenuDo(String url_str) throws IOException
     {
         // params comes from the execute() call: params[0] is the url.
         try {
@@ -251,7 +252,8 @@ public class CategoryExtras {
             Snackbar.make(this_view, "Error Fetching Menu", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
 
-            return "Unable to retrieve web page. URL may be invalid.";
+            throw e;
+            //return "Unable to retrieve web page. URL may be invalid.";
         }
     }
 

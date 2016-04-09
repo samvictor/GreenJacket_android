@@ -104,7 +104,6 @@ public class CheckoutExtras {
             temp_id = temp_row.getInt("row_id");
             temp_name = temp_row.getString("real_name");
             temp_base_price = Float.parseFloat(temp_row.getString("size_price"));
-            // remember options prices ================================================================================================
             temp_option_names = temp_row.getJSONArray("chosen_option_names");
             temp_option_prices = temp_row.getJSONArray("chosen_option_prices");
 
@@ -121,7 +120,7 @@ public class CheckoutExtras {
             }
 
             // if length is too long, put options on different lines
-            if (temp_option_names_str.length() > 38)
+            if (temp_option_names_str.length() > 30)
             {
                 temp_option_names_str = "";
                 //temp_option_names_str = temp_option_names_str.substring(0, 38);
@@ -131,6 +130,7 @@ public class CheckoutExtras {
                     temp_option_names_str += "  +" + temp_option_names.get(j) + "\n";
                 }
             }
+
 
             option_names.add(temp_option_names_str);
 
@@ -213,13 +213,14 @@ public class CheckoutExtras {
 
             // Create item name
             final TextView item_name = new TextView(context);
-            if (real_name.length() > 10)
+            if (real_name.length() > 30)
             {
                 Log.w(LogTag, "Text "+real_name+" too long for display: truncating");
-                real_name = real_name.substring(0, 10);
+                real_name = real_name.substring(0, 30);
             }
             real_name += "\n" + option_names.get(i);
 
+            System.out.println("options is:\n" + real_name);
             item_name.setText(real_name);
             item_name.setTextSize(14f);
             item_name.setPadding(30, 0, 0, 0);
@@ -227,7 +228,8 @@ public class CheckoutExtras {
             item_name.setGravity(Gravity.TOP);
 
             GridLayout.LayoutParams t_param = new GridLayout.LayoutParams();
-            t_param.height = (int) context.getResources().getDimension(R.dimen.checkout_name_height);
+            //t_param.height = (int) context.getResources().getDimension(R.dimen.checkout_name_height);
+            t_param.height = (int) GridLayout.LayoutParams.WRAP_CONTENT;
 
             try {
                 t_param.columnSpec = GridLayout.spec(1, 2f);
