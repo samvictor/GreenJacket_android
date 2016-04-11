@@ -51,10 +51,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean demo = false;
     public boolean use_qr = true;
     public boolean go_home = true;
-    public boolean meals = false;
+    public boolean meals = true;
 
     //private final String menu_url = "http://10.0.2.2:8000/GJ_app/data/customer/menu/"; // use this for localhost in emulator
-    private final String menu_url = "http://greenjacket.herokuapp.com/GJ_app/data/"; // from greenjacket
+    //private final String menu_url = "http://greenjacket.herokuapp.com/GJ_app/data/"; // from greenjacket
+    private final String menu_url = "http://greenjacket.nyc/data/"; // from greenjacket.nyc
 
 
     public JSONObject menu_data = null;

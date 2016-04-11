@@ -567,7 +567,13 @@ public class OptionsExtras {
                 Log.w(LogTag, "Text "+meals_size_names.get(i)+" too long for button, truncating");
             }
 
-            text_string = size_string + "\n" + text_string + "\n  +$" + meals_prices.get(i);
+            if (meals_size_ids.get(i).compareTo("6") == 0) {
+                text_string = text_string + "\n  +$" + meals_prices.get(i);
+            }
+            else
+            {
+                text_string = size_string + "\n" + text_string + "\n  +$" + meals_prices.get(i);
+            }
 
             new_meal_check.setText(text_string + "\n");
             new_meal_check.setTextColor(Color.parseColor("#ffffff"));

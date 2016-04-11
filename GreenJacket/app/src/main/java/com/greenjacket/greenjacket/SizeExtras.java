@@ -97,11 +97,11 @@ public class SizeExtras {
             String count = sizes.getJSONObject(key).getString("count");
             size_ids.add(key);
             price = FormatMoney(price);
-            temp_name = new_name + " $" + price;
+            temp_name = new_name + "\n  $" + price;
             if (name_id == "6")
             {
                 // count make sure id for count does not change
-                temp_name = count+" Items\n$"+price;
+                temp_name = count+" Items\n  $"+price;
             }
             size_button_names.add(temp_name);
             size_names.add(new_name);
