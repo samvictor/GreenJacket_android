@@ -169,6 +169,11 @@ public class CategoryExtras {
             {
                 text_string = text_string.substring(0, 25);
                 Log.w(LogTag, "Text "+special_button_names.get(i)+" too long for button, truncating");
+                if(text_string.compareTo("            ERROR!!! SIZE")==0)
+                {
+                    Log.e(LogTag, "No size from website. Replacing with temp value");
+                    text_string = "Regular\n$0.00";
+                }
             }
 
             new_text.setText(text_string+"\n");
