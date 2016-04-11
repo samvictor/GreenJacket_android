@@ -168,7 +168,7 @@ public class CategoryExtras {
             if (text_string.length() > 25)
             {
                 text_string = text_string.substring(0, 25);
-                Log.w(LogTag, "Text "+special_button_names.get(i)+" too long for button, truncating");
+                Log.w(LogTag, "Text " + special_button_names.get(i) + " too long for button, truncating");
                 if(text_string.compareTo("            ERROR!!! SIZE")==0)
                 {
                     Log.e(LogTag, "No size from website. Replacing with temp value");
@@ -283,6 +283,8 @@ public class CategoryExtras {
                 cat_names.add(new_name);
                 cat_ids.add(key);
             }
+
+            main_activity.main_toolbar_support.setTitle(menu_data.getString("company_name"));
 
             View.OnClickListener cat_listener = new View.OnClickListener(){
                 @Override

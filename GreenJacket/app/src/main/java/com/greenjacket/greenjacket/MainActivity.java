@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<Integer> order_ids; // don't remove
 
     Bundle saved_instance_state;
+    public android.support.v7.app.ActionBar main_toolbar_support;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         android.support.v7.app.ActionBar toolbar_support = getSupportActionBar();
+        main_toolbar_support = toolbar_support;
         toolbar_support.setTitle("Green Jacket");
 
         extras = new CategoryExtras(main_context, this);
