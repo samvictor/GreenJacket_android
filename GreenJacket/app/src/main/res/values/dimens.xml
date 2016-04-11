@@ -20,8 +20,8 @@
     <dimen name="x_button_width">20dp</dimen>
     <dimen name="x_button_height">26dp</dimen>
 
-    <dimen name="logo_width">220px</dimen>
-    <dimen name="logo_height">220px</dimen>
+    <dimen name="logo_width">180px</dimen>
+    <dimen name="logo_height">180px</dimen>
 
 
 

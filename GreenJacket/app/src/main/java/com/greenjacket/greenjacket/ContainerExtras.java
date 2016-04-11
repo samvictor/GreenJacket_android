@@ -63,6 +63,7 @@ public class ContainerExtras {
             }
         };
 
+        //GridLayout grid_layout_include = (GridLayout) container_activity.findViewById(R.id.content_container_include);
         GridLayout grid_layout = (GridLayout) container_activity.findViewById(R.id.container_content);
 
         CategoryExtras.CreateButtons(container_ids, container_names, container_listener,

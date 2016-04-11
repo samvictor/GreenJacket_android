@@ -33,20 +33,30 @@ public class Container extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        main_activity = MainActivity.instance;
-        menu_data = main_activity.menu_data;
-        demo = main_activity.demo;
-        instance = this;
-        container_context = this;
-        extras = new ContainerExtras(container_context, this);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Container");
 
+        main_activity = MainActivity.instance;
+
+        if (main_activity == null) {
+            Log.d("Container", "main was null, going to cat");
+
+            Intent to_category = new Intent(this, MainActivity.class);
+            to_category.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            to_category.putExtra("data_lost", true);
+            startActivity(to_category);
+            finish();
+            return;
+        }
+
+        menu_data = main_activity.menu_data;
+        demo = main_activity.demo;
+        instance = this;
+        container_context = this;
+        extras = new ContainerExtras(container_context, this);
 
         if (!demo) {
             Intent intent = getIntent();
@@ -82,7 +92,10 @@ public class Container extends AppCompatActivity {
             }
         });
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        else
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
     public void ContainerBurgerButton(View view) {

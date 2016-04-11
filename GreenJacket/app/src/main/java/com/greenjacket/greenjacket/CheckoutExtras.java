@@ -147,6 +147,7 @@ public class CheckoutExtras {
             }
         };
 
+        //GridLayout grid_layout_include = (GridLayout) checkout_activity.findViewById(R.id.content_checkout_include);
         GridLayout grid_layout = (GridLayout) checkout_activity.findViewById(R.id.checkout_content);
 
         CreateCheckoutButtons(ids, names, prices, option_names, checkout_listener,
@@ -164,10 +165,16 @@ public class CheckoutExtras {
         String LogTag = "create checkout";
         gridLayout.removeAllViews();
         int total = ids.size();
-        int column = 4;
-        int row = total;
-        gridLayout.setColumnCount(column);
-        gridLayout.setRowCount(row);
+        final int column = 4;
+        final int row = total;
+        checkout_activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                gridLayout.removeAllViews();
+                gridLayout.setColumnCount(column);
+                gridLayout.setRowCount(row);
+            }
+        });
 
         String real_name;
         String real_price;

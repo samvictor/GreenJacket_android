@@ -50,6 +50,18 @@ public class Options extends AppCompatActivity {
         setContentView(R.layout.activity_options);
 
         main_activity = MainActivity.instance;
+
+        if (main_activity == null) {
+            Log.d("Options", "main was null, going to cat");
+
+            Intent to_category = new Intent(this, MainActivity.class);
+            to_category.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            to_category.putExtra("data_lost", true);
+            startActivity(to_category);
+            finish();
+            return;
+        }
+
         menu_data = main_activity.menu_data;
         demo = main_activity.demo;
         meals = main_activity.meals;
@@ -91,7 +103,11 @@ public class Options extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Options");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        else
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         final Context options_context = this;

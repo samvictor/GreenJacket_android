@@ -139,7 +139,8 @@ public class OptionsExtras {
             }
         };
 
-        GridLayout grid_layout = (GridLayout) options_activity.findViewById(R.id.options_content_options);
+        GridLayout grid_layout_include = (GridLayout) options_activity.findViewById(R.id.options_content);
+        GridLayout grid_layout = (GridLayout) grid_layout_include.findViewById(R.id.options_content_options);
 
         OptionsExtras.CreateOptionsButtons(options_ids, options_names, options_listener,
                 "options_", grid_layout, options_context,
@@ -151,10 +152,17 @@ public class OptionsExtras {
     {
         String real_name = real_item.getString("name");
 
-        final GridLayout display_grid = (GridLayout) options_activity.findViewById(R.id.options_content_display);
-        display_grid.removeAllViews();
-        display_grid.setColumnCount(2);
-        display_grid.setRowCount(1);
+        final GridLayout display_grid_include = (GridLayout) options_activity.findViewById(R.id.options_content);
+        final GridLayout display_grid = (GridLayout) display_grid_include.findViewById(R.id.options_content_display);
+
+        options_activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                display_grid.removeAllViews();
+                display_grid.setColumnCount(2);
+                display_grid.setRowCount(1);
+            }
+        });
 
         final ImageView real_image = new ImageView(options_context);
         try{
@@ -236,17 +244,22 @@ public class OptionsExtras {
                                       ArrayList<String> meals_size_names)
     {
         String LogTag = "createButton";
-        gridLayout.removeAllViews();
         int total = names.size();
-        int column = 3;
-        int row = total / column;
+        final int column = 3;
+        final int row = total / column;
 
         int meal_total = meals_opt_names.size();
-        int meal_column = 3;
-        int meal_row = meal_total / meal_column;
+        final int meal_column = 3;
+        final int meal_row = meal_total / meal_column;
 
-        gridLayout.setColumnCount(Math.max(column, meal_column));
-        gridLayout.setRowCount((row + meal_row + 4) * 2 + 2);
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                gridLayout.removeAllViews();
+                gridLayout.setColumnCount(Math.max(column, meal_column));
+                gridLayout.setRowCount((row + meal_row + 4) * 2 + 2);
+            }
+        });
         int min_total = Math.min(total, meal_total);
 
 

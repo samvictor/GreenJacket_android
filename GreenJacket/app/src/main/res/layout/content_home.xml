@@ -24,15 +24,15 @@
 
     <ImageView
         android:layout_width="@dimen/logo_width"
-        android:layout_height="@dimen/button_height"
+        android:layout_height="@dimen/logo_height"
         android:id="@+id/imageView3"
-        android:src="@mipmap/logo"
+        android:src="@mipmap/logo_high"
         android:padding="0dp"
         android:scaleType="fitCenter"
         android:layout_marginRight="0dp"
         android:layout_above="@+id/textView9"
         android:layout_centerHorizontal="true"
-        android:paddingStart="0dp"
+        android:paddingStart="7dp"
         android:layout_marginLeft="0dp"
         android:layout_marginBottom="40dp"
         android:paddingBottom="0dp" />

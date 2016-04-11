@@ -33,6 +33,7 @@ public class Size extends AppCompatActivity {
     public String main_opt_name;
     public String container_id;
     public String container_name;
+    public String LogTag = "Size";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,13 +42,37 @@ public class Size extends AppCompatActivity {
         setContentView(R.layout.activity_size);
         main_activity = MainActivity.instance;
 
-        try { // Keep trying
-            main_activity.menu_data = new JSONObject(savedInstanceState.getString("menu_data"));
-            main_activity.orders = new JSONArray(savedInstanceState.getString("orders"));
-        }
-        catch (Exception e)
-        {
-            Log.e("Size", "Error restoring data: " + e);
+        if (main_activity == null) {
+            Log.d(LogTag, "main was null, going to cat");
+
+            Intent to_category = new Intent(this, MainActivity.class);
+            to_category.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            to_category.putExtra("data_lost", true);
+            startActivity(to_category);
+            finish();
+            return;
+            /*
+            try { // Keep trying
+                Log.d("Size", "Restarting Main Activity");
+                Intent to_category = new Intent(this, MainActivity.class);
+                to_category.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                to_category.putExtra("in_background", true);
+                startActivity(to_category);
+                main_activity = MainActivity.instance;
+                Log.e("Size", "Still continuing");
+
+                Log.d("Size", "Orders are " + savedInstanceState.getString("orders"));
+                Log.d("Size", "menu data is " + savedInstanceState.getString("menu_data"));
+                Log.d("Size", "main is " + main_activity);
+                Log.d("Size", "Orders from main are " + main_activity.menu_data);
+                main_activity.menu_data = new JSONObject(savedInstanceState.getString("menu_data"));
+                main_activity.orders = new JSONArray(savedInstanceState.getString("orders"));
+                System.out.println("loading saved data");
+                Log.d("Size", "Orders are " + savedInstanceState.getString("orders"));
+            } catch (Exception e) {
+                Log.d("Size", "saved is " + savedInstanceState);
+                Log.e("Size", "Error restoring data: " + e);
+            }*/
         }
 
         menu_data = main_activity.menu_data;
@@ -96,7 +121,10 @@ public class Size extends AppCompatActivity {
             }
         });
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        else
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
 
     }

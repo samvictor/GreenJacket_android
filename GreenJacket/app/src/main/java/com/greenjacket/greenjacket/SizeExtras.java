@@ -115,11 +115,8 @@ public class SizeExtras {
             }
         };
 
+        //GridLayout grid_layout_include = (GridLayout) size_activity.findViewById(R.id.content_size_include);
         GridLayout grid_layout = (GridLayout) size_activity.findViewById(R.id.size_content);
-        /*System.out.println("size activity is " + size_activity);
-        System.out.println("size_content is " + R.id.size_content);
-        System.out.println("old grid is " + size_activity.findViewById(R.id.size_content));
-        System.out.println("grid layout is " + grid_layout);*/
 
         CategoryExtras.CreateButtons(size_ids, size_names, size_listener,
                 "size_", grid_layout, size_context,

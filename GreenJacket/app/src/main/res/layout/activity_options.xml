@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="com.greenjacket.greenjacket.Options"
-    android:background="@color/colorBackground">
+    android:background="@color/colorBackground"
+    android:id = "@+id/options_activity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -29,6 +30,7 @@
         android:paddingTop="50dp">
 
         <include layout="@layout/content_options"
+            android:id = "@+id/options_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

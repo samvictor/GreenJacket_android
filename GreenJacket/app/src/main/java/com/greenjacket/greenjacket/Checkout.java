@@ -1,6 +1,7 @@
 package com.greenjacket.greenjacket;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -31,11 +32,25 @@ public class Checkout extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Checkout");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        else
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
 
         // get necessary things from main activity
         main_activity = MainActivity.instance;
+
+        if (main_activity == null) {
+            Log.d("Checkout", "main was null, going to cat");
+
+            Intent to_category = new Intent(this, MainActivity.class);
+            to_category.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            to_category.putExtra("data_lost", true);
+            startActivity(to_category);
+            finish();
+            return;
+        }
         demo = main_activity.demo;
         menu_data = main_activity.menu_data;
 

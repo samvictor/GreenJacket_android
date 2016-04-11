@@ -59,6 +59,7 @@ public class MainIngredientExtras {
             }
         };
 
+        //GridLayout grid_layout_include = (GridLayout) main_opt_activity.findViewById(R.id.content_main_ingredient_include);
         GridLayout grid_layout = (GridLayout) main_opt_activity.findViewById(R.id.main_ingredient_content);
 
         CategoryExtras.CreateButtons(main_opt_ids, main_opt_names, main_opt_listener,

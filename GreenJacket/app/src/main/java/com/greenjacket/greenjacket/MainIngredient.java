@@ -35,17 +35,29 @@ public class MainIngredient extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Set up stuff for this activity
+        setContentView(R.layout.activity_main_ingredient);
 
         // Set up connections to last activity
         main_opt_context = this;
         extras = new MainIngredientExtras(main_opt_context, this);
         main_activity = MainActivity.instance;
+
+        if (main_activity == null) {
+            Log.d("Main Ingredient", "main was null, going to cat");
+
+            Intent to_category = new Intent(this, MainActivity.class);
+            to_category.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            to_category.putExtra("data_lost", true);
+            startActivity(to_category);
+            finish();
+            return;
+        }
+
         menu_data = main_activity.menu_data;
         demo = main_activity.demo;
         instance = this;
 
-        // Set up stuff for this activity
-        setContentView(R.layout.activity_main_ingredient);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Main Ingredient");
@@ -84,8 +96,11 @@ public class MainIngredient extends AppCompatActivity {
                 startActivity(to_checkout);
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        else
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
     }
 

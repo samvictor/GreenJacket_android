@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public JSONObject menu_data = null;
+    public String menu_data_str;
     public boolean loading_data = false;
     public Context main_context;
     public CategoryExtras extras;
@@ -79,10 +80,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         main_context = this;
+        menu_data_str = new String();
+        Intent received_intent = getIntent();
+        if (received_intent.getBooleanExtra("start_qr", false))
+        {
+            loading_data = true; // home needs to be it's own activity with qr scanner
+        }
+        if (received_intent.getBooleanExtra("data_lost", false))
+        {
+            //moveTaskToBack(false);
+            loading_data = true;
+            Log.d("On create Main", "data lost");
+        }
+
         if (go_home && menu_data == null && !loading_data)
         {
             Intent to_home = new Intent(main_context, Home.class);
-            startActivity(to_home);
+            //startActivity(to_home);
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -98,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         order_ids = new ArrayList<Integer>();
 
         if (!demo && menu_data == null && !go_home && !loading_data) {
-            loading_data = true;
+            go_home = false;
             new DownloadMenu().execute("");
             System.out.println("downloading menu");
         }
@@ -137,6 +151,16 @@ public class MainActivity extends AppCompatActivity {
         try {
             menu_data = new JSONObject(savedInstanceState.getString("menu_data"));
             orders = new JSONArray(savedInstanceState.getString("orders"));
+
+            Log.d("Main", "Data lost (probably)");
+            Log.d("Main","menu data is " + menu_data);
+            try {
+                extras.DownloadMenuPost(menu_data.toString());
+            }
+            catch (Exception e)
+            {
+                Log.e("Main", "On restore " + e);
+            }
         }
         catch (Exception e)
         {
@@ -156,11 +180,22 @@ public class MainActivity extends AppCompatActivity {
             scanQR(this.findViewById(R.id.qr));
             received_intent.removeExtra("start_qr");
             loading_data = true; // home needs to be it's own activity with qr scanner
+            go_home = false;
+        }
+        else if (received_intent.getBooleanExtra("data_lost", false) && menu_data != null)
+        {
+            //moveTaskToBack(false);
+            go_home = false;
+            Log.d("Main", "Data lost");
+            Log.d("Main","menu data is " + menu_data);
+            extras.DownloadMenuPost(menu_data.toString());
+
         }
         else if (menu_data == null && go_home && !loading_data)
         {
             Intent to_home = new Intent(main_context, Home.class);
             startActivity(to_home);
+
         }
 
         super.onResume();
@@ -180,6 +215,14 @@ public class MainActivity extends AppCompatActivity {
         if (received_intent.getBooleanExtra("start_qr", false))
         {
             //scanQR(this.findViewById(R.id.qr));
+            go_home = false;
+        }
+
+        if (received_intent.getBooleanExtra("data_lost", false) && menu_data != null)
+        {
+            //moveTaskToBack(false);
+            go_home = false;
+            Log.d("Main", "Moved task to back");
         }
         else if (menu_data == null && go_home && !loading_data)
         {
@@ -399,6 +442,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String result)
         {
             // What to do with menu?
+            menu_data_str = result;
             menu_data = extras.DownloadMenuPost(result);
             loading_data = false;
             super.onPostExecute(result);

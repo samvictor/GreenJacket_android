@@ -99,14 +99,45 @@ public class CategoryExtras {
                                       ArrayList<String> special_button_names, ArrayList<String> types,
                                       ArrayList<String> prices)
     {
-        String LogTag = "createButton";
+        final String LogTag = "createButton";
 
-        gridLayout.removeAllViews();
         int total = names.size();
-        int column = 3;
-        int row = total / column;
-        gridLayout.setColumnCount(column);
-        gridLayout.setRowCount((row + 1) * 2);
+        final int column = 3;
+        final int row = total / column;
+
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                /*while (gridLayout == null) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        Log.w(LogTag, e);
+                    }
+                }*/
+
+                Log.d(LogTag, "Trying on ui thread");
+                try {
+                    gridLayout.removeAllViews();
+                    gridLayout.setColumnCount(column);
+                    gridLayout.setRowCount((row + 1) * 2);
+                } catch (NullPointerException e) {
+                    Log.d(LogTag, e.toString());
+                }
+            }
+        });
+
+
+        /*Log.d(LogTag, "Trying on async thread");
+        try {
+            gridLayout.removeAllViews();
+            gridLayout.setColumnCount(column);
+            gridLayout.setRowCount((row + 1) * 2);
+        } catch (Exception e) {
+            Log.d(LogTag, e.toString());
+        }*/
+
         for (int i = 0, c = 0, r = 0; i < total; i++, c++) {
             if (c == column) {
                 c = 0;
@@ -293,7 +324,11 @@ public class CategoryExtras {
                 }
             };
 
+            //GridLayout grid_layout_include = (GridLayout) main_activity.findViewById(R.id.content_main_include);
             GridLayout grid_layout = (GridLayout) main_activity.findViewById(R.id.main_content);
+
+            System.out.println("not" + grid_layout);
+
             CreateButtons(cat_ids, cat_names, cat_listener, "category_", grid_layout, main_context, main_activity);
         }
         catch (JSONException e)
